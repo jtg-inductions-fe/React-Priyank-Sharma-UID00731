@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { APP_ROUTES } from '../constants/routes';
+import { APP_ROUTES } from '@constants';
+
 import Home from '../pages/Home/Home';
 import NotFound from '../pages/NotFound/NotFound';
 
