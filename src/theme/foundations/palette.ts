@@ -1,6 +1,6 @@
 import { PaletteOptions } from '@mui/material/styles';
 
-import { COLORS } from '../../constants/themeConstant';
+import { COLORS } from '@constants';
 
 /**
  * Custom palette mapping for the application's theme.
