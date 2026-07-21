@@ -22,7 +22,7 @@ import {
 import ProfileDrawer from './ProfileDrawer';
 import Logo from '../../assets/images/logo.png';
 import { loginSuccess } from '../../features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RoleType } from '../../types/auth';
 
 const navigationItems = [

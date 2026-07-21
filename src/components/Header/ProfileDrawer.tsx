@@ -9,7 +9,7 @@ import { Divider, Drawer, ListItemIcon, ListItemText } from '@mui/material';
 
 import { StyledList, StyledListItemButton } from './ProfileDrawer.styles';
 import { logout } from '../../features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RoleType } from '../../types/auth';
 
 interface ProfileDrawerProps {
