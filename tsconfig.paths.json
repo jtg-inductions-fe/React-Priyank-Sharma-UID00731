@@ -3,12 +3,36 @@
         "baseUrl": "./src",
         "paths": {
             "@assets/*": ["assets/*"],
+
             "@constants": ["constants/index"],
+            "@constants/*": ["constants/*"],
+
             "@theme": ["theme/index"],
+            "@theme/*": ["theme/*"],
+
             "@store": ["store/index"],
+            "@store/*": ["store/*"],
+
             "@pages": ["pages/index"],
+            "@pages/*": ["pages/*"],
+
             "@components": ["components/index"],
-            "@routes": ["routes/index"]
+            "@components/*": ["components/*"],
+
+            "@routes": ["routes/index"],
+            "@routes/*": ["routes/*"],
+
+            "@hooks": ["hooks/index"],
+            "@hooks/*": ["hooks/*"],
+
+            "@types": ["types/index"],
+            "@types/*": ["types/*"],
+
+            "@api/*": ["api/*"],
+            "@api": ["api/index"],
+
+            "@features/*": ["features/*"],
+            "@layouts/*": ["layouts/*"]
         }
     }
 }

@@ -6,6 +6,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Button, Container, Drawer, Typography } from '@mui/material';
 
 import { APP_ROUTES } from '@constants';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { RoleType } from '@types';
 
 import {
     ActionContainer,
@@ -19,11 +21,9 @@ import {
     StyledAppBar,
     StyledToolbar,
 } from './Header.styles';
-import ProfileDrawer from './ProfileDrawer';
+import ProfileDrawer from './ProfileDrawer.component';
 import Logo from '../../assets/images/logo.png';
 import { loginSuccess } from '../../features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { RoleType } from '../../types/auth';
 
 const navigationItems = [
     {
@@ -64,7 +64,7 @@ const normalUser = {
 //     token: 'dummy-token',
 // };
 
-const Header = () => {
+export const Header = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
 
@@ -113,6 +113,7 @@ const Header = () => {
                                 </Button>
                             </>
                         ) : (
+                            // How is the content in between is getting rendered
                             <ProfileAvatar
                                 onClick={() => setIsProfileDrawerOpen(true)}
                             >
@@ -177,5 +178,3 @@ const Header = () => {
         </StyledAppBar>
     );
 };
-
-export default Header;
