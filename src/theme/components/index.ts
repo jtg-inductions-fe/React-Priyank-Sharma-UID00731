@@ -48,6 +48,9 @@ const fontFaceDeclarations = `
 };
 `;
 
+/**
+ * Material UI component theme overrides.
+ */
 export const components: Components = {
     MuiCssBaseline: {
         styleOverrides: () => `

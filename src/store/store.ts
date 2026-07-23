@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
 
 /**
- * Global Redux Store configuration.
+ * Global Redux store.
  */
 export const store = configureStore({
     reducer: {
