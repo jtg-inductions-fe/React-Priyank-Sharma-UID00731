@@ -1,9 +1,11 @@
-export enum RoleType {
-    ADMIN = 1,
-    NORMAL_USER = 2,
-}
+export const ROLE = {
+    ADMIN: 1,
+    NORMAL_USER: 2,
+} as const;
 
-export interface User {
+export type RoleType = (typeof ROLE)[keyof typeof ROLE];
+
+export type User = {
     id: number;
     email: string;
     name: string;
@@ -12,9 +14,9 @@ export interface User {
     zipcode: string;
     balance: number;
     role: RoleType;
-}
+};
 
-export interface LoginPayload {
+export type LoginPayload = {
     user: User;
     token: string;
-}
+};

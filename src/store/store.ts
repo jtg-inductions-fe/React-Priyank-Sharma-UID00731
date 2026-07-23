@@ -1,10 +1,9 @@
 import { baseApi } from '@api/baseApi';
+import { authReducer } from '@features/auth';
 import { configureStore } from '@reduxjs/toolkit';
 
-import authReducer from '../features/auth/authSlice';
-
 /**
- * Global Redux Store configuration.
+ * Global Redux store.
  */
 export const store = configureStore({
     reducer: {

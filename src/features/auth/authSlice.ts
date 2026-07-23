@@ -1,29 +1,42 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { LoginPayload } from '@types';
 
-import { LoginPayload, User } from '../../types/auth';
+import { AuthState } from './types';
 
-interface AuthState {
-    user: User | null;
-    token: string | null;
-    isAuthenticated: boolean;
-}
-
+/**
+ * Initial authentication state.
+ */
 const initialState: AuthState = {
     user: null,
     token: null,
     isAuthenticated: false,
 };
 
-const authSlice = createSlice({
+/**
+ * Redux slice for authentication state management.
+ */
+export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        /**
+         * Stores authenticated user information after successful login.
+         *
+         * @param state - Current authentication state.
+         * @param action - Login payload containing user and token.
+         */
         loginSuccess(state, action: PayloadAction<LoginPayload>) {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
+            const { user, token } = action.payload;
+            state.user = user;
+            state.token = token;
             state.isAuthenticated = true;
         },
-
+        /**
+         * Clears the authenticated user information.
+         *
+         * @param state - Current authentication state.
+         */
         logout(state) {
             state.user = null;
             state.token = null;
@@ -33,5 +46,4 @@ const authSlice = createSlice({
 });
 
 export const { loginSuccess, logout } = authSlice.actions;
-
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

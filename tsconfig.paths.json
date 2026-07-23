@@ -2,6 +2,9 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
+            "@api": ["api/index"],
+            "@api/*": ["api/*"],
+
             "@assets/*": ["assets/*"],
 
             "@constants": ["constants/index"],
@@ -22,17 +25,17 @@
             "@routes": ["routes/index"],
             "@routes/*": ["routes/*"],
 
+            "@features": ["features/index"],
+            "@features/*": ["features/*"],
+
             "@hooks": ["hooks/index"],
             "@hooks/*": ["hooks/*"],
 
             "@types": ["types/index"],
             "@types/*": ["types/*"],
 
-            "@api/*": ["api/*"],
-            "@api": ["api/index"],
-
-            "@features/*": ["features/*"],
-            "@layouts/*": ["layouts/*"]
+            "@layouts/*": ["layouts/*"],
+            "@config/*": ["config/*"]
         }
     }
 }

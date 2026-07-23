@@ -1,6 +1,11 @@
 import { Footer, Header, Hero, RestaurantSection } from '@components';
 
-const Home = () => (
+/**
+ * Displays the application home page.
+ *
+ * @returns Home page component.
+ */
+export const Home = () => (
     <>
         <Header />
         <Hero />
@@ -8,5 +13,3 @@ const Home = () => (
         <Footer />
     </>
 );
-
-export default Home;
