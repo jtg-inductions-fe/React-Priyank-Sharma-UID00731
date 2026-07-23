@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { AppBar, Avatar, Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Avatar, IconButton, Stack, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -8,33 +8,23 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-export const StyledToolbar = styled(Toolbar)(() => ({
-    display: 'flex',
+export const StyledToolbar = styled(Toolbar)({
     justifyContent: 'space-between',
-    alignItems: 'center',
     minHeight: '7rem',
+});
+
+export const LogoContainer = styled(Stack)(() => ({
+    alignItems: 'center',
 }));
 
-export const LogoContainer = styled(Box)(() => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.8rem',
-}));
-
-export const NavigationContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2rem',
-
+export const NavigationContainer = styled(Stack)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
         display: 'none',
     },
 }));
 
-export const ActionContainer = styled(Box)(({ theme }) => ({
-    display: 'flex',
+export const ActionContainer = styled(Stack)(({ theme }) => ({
     alignItems: 'center',
-    gap: '1rem',
 
     [theme.breakpoints.down('md')]: {
         display: 'none',
@@ -65,10 +55,8 @@ export const MobileMenuButton = styled(IconButton)(({ theme }) => ({
     },
 }));
 
-export const DrawerContent = styled(Box)(() => ({
+export const DrawerContent = styled(Stack)(() => ({
     width: '250px',
-    display: 'flex',
-    flexDirection: 'column',
     padding: '1rem',
 }));
 

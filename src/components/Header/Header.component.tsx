@@ -5,7 +5,13 @@ import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, Container, Drawer, Typography } from '@mui/material';
 
+import Logo from '@assets/images/logo.png';
+import { PopupMenu } from '@components';
+import { normalUser } from '@components/Header/dummyData';
+import { navigationItems } from '@config/navigation';
 import { APP_ROUTES } from '@constants';
+import { loginSuccess, logout } from '@features/auth';
+import { useAppDispatch, useAppSelector } from '@hooks';
 
 import {
     ActionContainer,
@@ -19,64 +25,42 @@ import {
     StyledAppBar,
     StyledToolbar,
 } from './Header.styles';
-import ProfileDrawer from './ProfileDrawer';
-import Logo from '../../assets/images/logo.png';
-import { loginSuccess } from '../../features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { RoleType } from '../../types/auth';
+import { getProfileMenuItems } from './profileMenuItems';
 
-const navigationItems = [
-    {
-        label: 'Restaurants',
-        path: APP_ROUTES.RESTAURANTS,
-    },
-    {
-        label: 'Menu',
-        path: APP_ROUTES.MENU,
-    },
-];
-
-const normalUser = {
-    user: {
-        id: 1,
-        email: 'priyank@example.com',
-        name: 'Priyank',
-        city: '',
-        state: '',
-        zipcode: '',
-        balance: 0,
-        role: RoleType.NORMAL_USER,
-    },
-    token: 'dummy-token',
-};
-
-// const ownerUser = {
-//     user: {
-//         id: 2,
-//         email: 'owner@example.com',
-//         name: 'Restaurant Owner',
-//         city: '',
-//         state: '',
-//         zipcode: '',
-//         balance: 0,
-//         role: RoleType.ADMIN,
-//     },
-//     token: 'dummy-token',
-// };
-
-const Header = () => {
+export const Header = () => {
+    // States
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+    // Hooks
     const dispatch = useAppDispatch();
 
+    // Selectors
     const auth = useAppSelector((state) => state.auth);
+
+    const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const menuItems = auth.user
+        ? getProfileMenuItems({
+              role: auth.user.role,
+              onLogout: () => {
+                  handleMenuClose();
+                  dispatch(logout());
+              },
+          })
+        : [];
 
     return (
         <StyledAppBar position="static" elevation={1}>
             <Container maxWidth="xl">
                 <StyledToolbar>
-                    <LogoContainer>
+                    <LogoContainer direction="row" spacing={1}>
                         <LogoImage src={Logo} alt="EatPlex Logo" />
 
                         <Typography variant="h5" color="primary">
@@ -84,7 +68,7 @@ const Header = () => {
                         </Typography>
                     </LogoContainer>
 
-                    <NavigationContainer>
+                    <NavigationContainer direction="row" spacing={3}>
                         {navigationItems.map((item) => (
                             <NavigationLink key={item.path} to={item.path}>
                                 {item.label}
@@ -92,7 +76,7 @@ const Header = () => {
                         ))}
                     </NavigationContainer>
 
-                    <ActionContainer>
+                    <ActionContainer direction="row" spacing={1}>
                         {!auth.isAuthenticated ? (
                             <>
                                 <Button
@@ -113,9 +97,7 @@ const Header = () => {
                                 </Button>
                             </>
                         ) : (
-                            <ProfileAvatar
-                                onClick={() => setIsProfileDrawerOpen(true)}
-                            >
+                            <ProfileAvatar onClick={handleProfileClick}>
                                 {auth.user?.name?.charAt(0)}
                             </ProfileAvatar>
                         )}
@@ -135,9 +117,7 @@ const Header = () => {
                 open={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
             >
-                <DrawerContent>
-                    {auth.isAuthenticated && <Button>Profile</Button>}
-
+                <DrawerContent spacing={1}>
                     {navigationItems.map((item) => (
                         <Button
                             key={item.path}
@@ -170,12 +150,15 @@ const Header = () => {
                     )}
                 </DrawerContent>
             </Drawer>
-            <ProfileDrawer
-                open={isProfileDrawerOpen}
-                onClose={() => setIsProfileDrawerOpen(false)}
-            />
+
+            {auth.isAuthenticated && (
+                <PopupMenu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    items={menuItems}
+                />
+            )}
         </StyledAppBar>
     );
 };
-
-export default Header;
