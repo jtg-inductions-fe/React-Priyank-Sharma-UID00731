@@ -9,17 +9,19 @@ import {
 } from '@mui/icons-material';
 
 import { PopupMenuItem } from '@components/PopupMenu';
-import { ROLE, RoleType } from '@types';
+import type { Restaurant } from '@types';
 
 interface GetProfileMenuItemsProps {
-    role?: RoleType;
+    restaurants?: Restaurant[];
     onLogout: () => void;
 }
 
 export const getProfileMenuItems = ({
-    role,
+    restaurants = [],
     onLogout,
 }: GetProfileMenuItemsProps): PopupMenuItem[] => {
+    const isRestaurantOwner = restaurants.length > 0;
+
     const menuItems: PopupMenuItem[] = [
         {
             label: 'Profile',
@@ -27,7 +29,7 @@ export const getProfileMenuItems = ({
         },
     ];
 
-    if (role === ROLE.NORMAL_USER) {
+    if (!isRestaurantOwner) {
         menuItems.push(
             {
                 label: 'Cart',
@@ -40,7 +42,7 @@ export const getProfileMenuItems = ({
         );
     }
 
-    if (role === ROLE.ADMIN) {
+    if (isRestaurantOwner) {
         menuItems.push(
             {
                 label: 'My Restaurants',

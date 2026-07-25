@@ -1,3 +1,5 @@
+import type { Restaurant } from './restaurant';
+
 export const ROLE = {
     ADMIN: 1,
     NORMAL_USER: 2,
@@ -14,9 +16,27 @@ export type User = {
     zipcode: string;
     balance: number;
     role: RoleType;
+    restaurants: Restaurant[];
 };
 
-export type LoginPayload = {
-    user: User;
+export type LoginRequest = {
+    email: string;
+    password: string;
+};
+
+export type LoginResponse = {
     token: string;
+    user: User;
+};
+
+export type RegisterRequest = {
+    email: string;
+    password: string;
+    name: string;
+    city: string;
+    state: string;
+    zipcode: string;
+    balance: number;
+    role: RoleType;
+    admin_key?: string;
 };

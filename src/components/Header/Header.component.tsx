@@ -7,10 +7,9 @@ import { Button, Container, Drawer, Typography } from '@mui/material';
 
 import Logo from '@assets/images/logo.png';
 import { PopupMenu } from '@components';
-import { normalUser } from '@components/Header/dummyData';
 import { navigationItems } from '@config/navigation';
 import { APP_ROUTES } from '@constants';
-import { loginSuccess, logout } from '@features/auth';
+import { logout } from '@features/auth';
 import { useAppDispatch, useAppSelector } from '@hooks';
 
 import {
@@ -48,7 +47,7 @@ export const Header = () => {
 
     const menuItems = auth.user
         ? getProfileMenuItems({
-              role: auth.user.role,
+              restaurants: auth.user.restaurants,
               onLogout: () => {
                   handleMenuClose();
                   dispatch(logout());
@@ -80,10 +79,9 @@ export const Header = () => {
                         {!auth.isAuthenticated ? (
                             <>
                                 <Button
+                                    component={NavLink}
+                                    to={APP_ROUTES.LOGIN}
                                     color="inherit"
-                                    onClick={() =>
-                                        dispatch(loginSuccess(normalUser))
-                                    }
                                 >
                                     Login
                                 </Button>
@@ -98,7 +96,7 @@ export const Header = () => {
                             </>
                         ) : (
                             <ProfileAvatar onClick={handleProfileClick}>
-                                {auth.user?.name?.charAt(0)}
+                                {auth.user?.name?.charAt(0).toUpperCase()}
                             </ProfileAvatar>
                         )}
                     </ActionContainer>
@@ -118,19 +116,19 @@ export const Header = () => {
                 onClose={() => setIsDrawerOpen(false)}
             >
                 <DrawerContent spacing={1}>
-                    {navigationItems.map((item) => (
-                        <Button
-                            key={item.path}
-                            component={NavLink}
-                            to={item.path}
-                            onClick={() => setIsDrawerOpen(false)}
-                        >
-                            {item.label}
-                        </Button>
-                    ))}
-
-                    {!auth.isAuthenticated && (
+                    {!auth.isAuthenticated ? (
                         <>
+                            {navigationItems.map((item) => (
+                                <Button
+                                    key={item.path}
+                                    component={NavLink}
+                                    to={item.path}
+                                    onClick={() => setIsDrawerOpen(false)}
+                                >
+                                    {item.label}
+                                </Button>
+                            ))}
+
                             <Button
                                 component={NavLink}
                                 to={APP_ROUTES.LOGIN}
@@ -146,6 +144,21 @@ export const Header = () => {
                             >
                                 Register
                             </Button>
+                        </>
+                    ) : (
+                        <>
+                            {menuItems.map((item) => (
+                                <Button
+                                    key={item.label}
+                                    onClick={() => {
+                                        item.onClick?.();
+
+                                        setIsDrawerOpen(false);
+                                    }}
+                                >
+                                    {item.label}
+                                </Button>
+                            ))}
                         </>
                     )}
                 </DrawerContent>

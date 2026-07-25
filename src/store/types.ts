@@ -1,4 +1,4 @@
-import type { store } from './store';
+import { store } from './store';
 
 /**
  * Root Redux state.

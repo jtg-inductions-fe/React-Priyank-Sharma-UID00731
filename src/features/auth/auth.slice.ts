@@ -1,16 +1,24 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { LoginPayload } from '@types';
+import type { LoginResponse } from '@types';
+import {
+    getToken,
+    getUser,
+    removeToken,
+    removeUser,
+    setToken,
+    setUser,
+} from '@utils';
 
-import { AuthState } from './types';
+import type { AuthState } from './auth.types';
 
 /**
  * Initial authentication state.
  */
 const initialState: AuthState = {
-    user: null,
-    token: null,
-    isAuthenticated: false,
+    user: getUser(),
+    token: getToken(),
+    isAuthenticated: Boolean(getToken()),
 };
 
 /**
@@ -21,19 +29,26 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         /**
-         * Stores authenticated user information after successful login.
+         * Stores authenticated user information after successful login
+         * and persists authentication data in browser cookies.
          *
          * @param state - Current authentication state.
          * @param action - Login payload containing user and token.
          */
-        loginSuccess(state, action: PayloadAction<LoginPayload>) {
+        loginSuccess(state, action: PayloadAction<LoginResponse>) {
             const { user, token } = action.payload;
+
             state.user = user;
             state.token = token;
             state.isAuthenticated = true;
+
+            setToken(token);
+            setUser(user);
         },
+
         /**
-         * Clears the authenticated user information.
+         * Clears the authenticated user information
+         * and removes persisted authentication data.
          *
          * @param state - Current authentication state.
          */
@@ -41,9 +56,19 @@ export const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.isAuthenticated = false;
+
+            removeToken();
+            removeUser();
         },
     },
 });
 
+/**
+ * Authentication actions.
+ */
 export const { loginSuccess, logout } = authSlice.actions;
+
+/**
+ * Authentication reducer.
+ */
 export const authReducer = authSlice.reducer;

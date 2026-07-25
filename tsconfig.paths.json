@@ -35,7 +35,10 @@
             "@types/*": ["types/*"],
 
             "@layouts/*": ["layouts/*"],
-            "@config/*": ["config/*"]
+            "@config/*": ["config/*"],
+
+            "@utils": ["utils/index"],
+            "@utils/*": ["utils/*"]
         }
     }
 }
