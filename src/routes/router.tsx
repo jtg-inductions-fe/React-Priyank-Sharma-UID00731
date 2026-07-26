@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { APP_ROUTES } from '@constants';
 import { MainLayout } from '@layouts';
-import { Home, Login, NotFound, Register, Restaurants } from '@pages';
+import { Home, Login, Menu, NotFound, Register, Restaurants } from '@pages';
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +15,14 @@ export const router = createBrowserRouter([
             {
                 path: APP_ROUTES.RESTAURANTS,
                 element: <Restaurants />,
+            },
+            {
+                path: APP_ROUTES.MENU,
+                element: <Menu />,
+            },
+            {
+                path: APP_ROUTES.RESTAURANT_MENU,
+                element: <Menu />,
             },
         ],
     },

@@ -1,5 +1,11 @@
+import { NavLink } from 'react-router-dom';
+
+import { Button, Typography } from '@mui/material';
+
 import { useGetRestaurantsQuery } from '@api';
-import { Hero, RestaurantSection } from '@components';
+import { CardSection, CustomCard, Hero } from '@components';
+import { getCardImage } from '@components/CustomCard/cardImages';
+import { APP_ROUTES } from '@constants';
 
 /**
  * Displays the application home page.
@@ -17,11 +23,36 @@ export const Home = () => {
         <>
             <Hero />
 
-            <RestaurantSection
+            <CardSection
                 title="Featured Restaurants"
-                restaurants={restaurants}
+                items={restaurants}
                 isLoading={isLoading}
                 error={error}
+                emptyMessage="No restaurants found."
+                loadingMessage="Loading restaurants..."
+                errorMessage="Failed to load restaurants."
+                renderCard={(restaurant) => (
+                    <CustomCard
+                        key={restaurant.id}
+                        image={getCardImage(restaurant.id)}
+                        title={restaurant.name}
+                        subtitle={
+                            <Typography variant="body2" color="text.secondary">
+                                {restaurant.city}, {restaurant.state}
+                            </Typography>
+                        }
+                        actions={
+                            <Button
+                                component={NavLink}
+                                to={`${APP_ROUTES.MENU}/${restaurant.id}`}
+                                variant="contained"
+                                fullWidth
+                            >
+                                View Menu
+                            </Button>
+                        }
+                    />
+                )}
             />
         </>
     );

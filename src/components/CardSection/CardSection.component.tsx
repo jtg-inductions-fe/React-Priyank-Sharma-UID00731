@@ -1,25 +1,23 @@
 import { Typography } from '@mui/material';
 
-import { RestaurantCard } from '@components/RestaurantCard';
+import { CardGrid, StyledContainer, StyledSection } from './CardSection.styles';
+import type { CardSectionProps } from './CardSection.types';
 
-import {
-    RestaurantGrid,
-    StyledContainer,
-    StyledSection,
-} from './RestaurantSection.styles';
-import type { RestaurantSectionProps } from './RestaurantSection.types';
-
-export const RestaurantSection = ({
+export const CardSection = <T,>({
     title,
-    restaurants,
+    items,
     isLoading,
     error,
-}: RestaurantSectionProps) => {
+    emptyMessage,
+    loadingMessage = 'Loading...',
+    errorMessage = 'Failed to load data.',
+    renderCard,
+}: CardSectionProps<T>) => {
     if (isLoading) {
         return (
             <StyledSection>
                 <StyledContainer maxWidth="lg">
-                    <Typography>Loading restaurants...</Typography>
+                    <Typography>{loadingMessage}</Typography>
                 </StyledContainer>
             </StyledSection>
         );
@@ -29,17 +27,17 @@ export const RestaurantSection = ({
         return (
             <StyledSection>
                 <StyledContainer maxWidth="lg">
-                    <Typography>Failed to load restaurants.</Typography>
+                    <Typography>{errorMessage}</Typography>
                 </StyledContainer>
             </StyledSection>
         );
     }
 
-    if (restaurants.length === 0) {
+    if (items.length === 0) {
         return (
             <StyledSection>
                 <StyledContainer maxWidth="lg">
-                    <Typography>No restaurants found.</Typography>
+                    <Typography>{emptyMessage}</Typography>
                 </StyledContainer>
             </StyledSection>
         );
@@ -54,14 +52,7 @@ export const RestaurantSection = ({
                     </Typography>
                 )}
 
-                <RestaurantGrid>
-                    {restaurants.map((restaurant) => (
-                        <RestaurantCard
-                            key={restaurant.id}
-                            restaurant={restaurant}
-                        />
-                    ))}
-                </RestaurantGrid>
+                <CardGrid>{items.map(renderCard)}</CardGrid>
             </StyledContainer>
         </StyledSection>
     );

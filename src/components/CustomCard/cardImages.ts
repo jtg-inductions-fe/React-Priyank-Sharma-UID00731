@@ -3,12 +3,7 @@ import Restaurant2 from '@assets/images/restaurant-2.png';
 import Restaurant3 from '@assets/images/restaurant-3.png';
 import Restaurant4 from '@assets/images/restaurant-4.png';
 
-export const RESTAURANT_IMAGES = [
-    Restaurant1,
-    Restaurant2,
-    Restaurant3,
-    Restaurant4,
-];
+export const CARD_IMAGES = [Restaurant1, Restaurant2, Restaurant3, Restaurant4];
 
-export const getRestaurantImage = (id: number): string =>
-    RESTAURANT_IMAGES[(id - 1) % RESTAURANT_IMAGES.length];
+export const getCardImage = (id: number): string =>
+    CARD_IMAGES[(id - 1) % CARD_IMAGES.length];

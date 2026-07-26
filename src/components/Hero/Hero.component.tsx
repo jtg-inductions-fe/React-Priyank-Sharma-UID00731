@@ -47,7 +47,7 @@ export const Hero = () => (
                             </HeroButton>
                         </NavLink>
 
-                        <NavLink to={APP_ROUTES.NOT_FOUND}>
+                        <NavLink to={APP_ROUTES.MENU}>
                             <HeroButton variant="outlined">
                                 Browse Menu
                             </HeroButton>

@@ -5,6 +5,7 @@ export const APP_ROUTES = {
     HOME: '/',
     RESTAURANTS: '/restaurants',
     MENU: '/menu',
+    RESTAURANT_MENU: '/menu/:restaurantId',
     LOGIN: '/login',
     REGISTER: '/register',
     DASHBOARD: '/dashboard',

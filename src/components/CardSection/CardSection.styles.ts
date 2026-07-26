@@ -10,7 +10,7 @@ export const StyledContainer = styled(Container)({
     flexDirection: 'column',
 });
 
-export const RestaurantGrid = styled(Box)(({ theme }) => ({
+export const CardGrid = styled(Box)(({ theme }) => ({
     display: 'grid',
     gridTemplateColumns: '1fr',
     gap: theme.spacing(3),
