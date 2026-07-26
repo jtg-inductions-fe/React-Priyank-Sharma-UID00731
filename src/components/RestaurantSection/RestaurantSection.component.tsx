@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 
-import { useGetRestaurantsQuery } from '@api';
 import { RestaurantCard } from '@components/RestaurantCard';
 
 import {
@@ -8,14 +7,14 @@ import {
     StyledContainer,
     StyledSection,
 } from './RestaurantSection.styles';
+import type { RestaurantSectionProps } from './RestaurantSection.types';
 
-export const RestaurantSection = () => {
-    const {
-        data: restaurants = [],
-        isLoading,
-        error,
-    } = useGetRestaurantsQuery();
-
+export const RestaurantSection = ({
+    title,
+    restaurants,
+    isLoading,
+    error,
+}: RestaurantSectionProps) => {
     if (isLoading) {
         return (
             <StyledSection>
@@ -36,10 +35,24 @@ export const RestaurantSection = () => {
         );
     }
 
+    if (restaurants.length === 0) {
+        return (
+            <StyledSection>
+                <StyledContainer maxWidth="lg">
+                    <Typography>No restaurants found.</Typography>
+                </StyledContainer>
+            </StyledSection>
+        );
+    }
+
     return (
         <StyledSection>
             <StyledContainer maxWidth="lg">
-                <Typography variant="h4">Restaurants</Typography>
+                {title && (
+                    <Typography variant="h4" gutterBottom>
+                        {title}
+                    </Typography>
+                )}
 
                 <RestaurantGrid>
                     {restaurants.map((restaurant) => (

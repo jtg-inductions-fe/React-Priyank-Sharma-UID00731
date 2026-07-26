@@ -1,6 +1,9 @@
+import { NavLink } from 'react-router-dom';
+
 import { Box, Container } from '@mui/material';
 
 import HeroImageFile from '@assets/images/hero-image.png';
+import { APP_ROUTES } from '@constants';
 
 import {
     ButtonContainer,
@@ -38,11 +41,17 @@ export const Hero = () => (
                     </Description>
 
                     <ButtonContainer>
-                        <HeroButton variant="contained" color="primary">
-                            Explore Restaurants
-                        </HeroButton>
+                        <NavLink to={APP_ROUTES.RESTAURANTS}>
+                            <HeroButton variant="contained" color="primary">
+                                Explore Restaurants
+                            </HeroButton>
+                        </NavLink>
 
-                        <HeroButton variant="outlined">Browse Menu</HeroButton>
+                        <NavLink to={APP_ROUTES.NOT_FOUND}>
+                            <HeroButton variant="outlined">
+                                Browse Menu
+                            </HeroButton>
+                        </NavLink>
                     </ButtonContainer>
 
                     <Timing variant="body2">

@@ -5,6 +5,10 @@ import { APP_ROUTES } from '@constants';
  */
 export const navigationItems = [
     {
+        label: 'Home',
+        path: APP_ROUTES.HOME,
+    },
+    {
         label: 'Restaurants',
         path: APP_ROUTES.RESTAURANTS,
     },

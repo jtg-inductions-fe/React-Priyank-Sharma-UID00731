@@ -116,19 +116,19 @@ export const Header = () => {
                 onClose={() => setIsDrawerOpen(false)}
             >
                 <DrawerContent spacing={1}>
+                    {navigationItems.map((item) => (
+                        <Button
+                            key={item.path}
+                            component={NavLink}
+                            to={item.path}
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            {item.label}
+                        </Button>
+                    ))}
+
                     {!auth.isAuthenticated ? (
                         <>
-                            {navigationItems.map((item) => (
-                                <Button
-                                    key={item.path}
-                                    component={NavLink}
-                                    to={item.path}
-                                    onClick={() => setIsDrawerOpen(false)}
-                                >
-                                    {item.label}
-                                </Button>
-                            ))}
-
                             <Button
                                 component={NavLink}
                                 to={APP_ROUTES.LOGIN}

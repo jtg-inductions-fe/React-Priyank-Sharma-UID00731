@@ -7,8 +7,12 @@ export const restaurantApi = baseApi.injectEndpoints({
         getRestaurants: build.query<Restaurant[], void>({
             query: () => '/restaurants',
         }),
+        getSortedRestaurants: build.query<Restaurant[], void>({
+            query: () => '/restaurants/sorted',
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useGetRestaurantsQuery } = restaurantApi;
+export const { useGetRestaurantsQuery, useGetSortedRestaurantsQuery } =
+    restaurantApi;
