@@ -5,4 +5,6 @@ export interface MenuCardProps {
     isRestaurantMenu: boolean;
     isOwner: boolean;
     restaurantId: number;
+    onEdit?: (item: MenuItem) => void;
+    onDelete: (item: MenuItem) => void;
 }

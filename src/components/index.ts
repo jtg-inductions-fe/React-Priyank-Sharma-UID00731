@@ -5,4 +5,5 @@ export * from './CardSection';
 export * from './Footer';
 export * from './PopupMenu';
 export * from './MenuItemCard';
-export * from './AddMenuItemDialog';
+export * from './CustomDialog';
+export * from './ConfirmationDialog';

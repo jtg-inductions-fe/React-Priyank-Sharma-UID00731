@@ -5,19 +5,22 @@ import { useParams } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 import { useGetMenuItemsQuery, useGetRestaurantsQuery } from '@api';
-import { AddMenuItemDialog, CardSection, MenuCard } from '@components';
+import { CardSection, CustomDialog, DialogMode, MenuCard } from '@components';
 import { useAppSelector } from '@hooks';
+import type { MenuItem } from '@types';
 
 import { MenuHeader, StyledPage } from './Menu.styles';
 
 export const Menu = () => {
     const { restaurantId } = useParams();
 
+    const restaurantIdNumber = Number(restaurantId);
+
     const {
         data: menuItems = [],
         isLoading,
         error,
-    } = useGetMenuItemsQuery(restaurantId ? Number(restaurantId) : undefined);
+    } = useGetMenuItemsQuery(restaurantId ? restaurantIdNumber : undefined);
 
     const availableMenuItems = menuItems.filter((item) => item.quantity > 0);
 
@@ -26,10 +29,14 @@ export const Menu = () => {
     const { data: restaurants = [] } = useGetRestaurantsQuery();
 
     const currentRestaurant = restaurants.find(
-        (restaurant) => restaurant.id === Number(restaurantId),
+        (restaurant) => restaurant.id === restaurantIdNumber,
     );
 
-    const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const [dialogMode, setDialogMode] = useState<DialogMode>('add');
+
+    const [selectedItem, setSelectedItem] = useState<MenuItem>();
 
     const isRestaurantMenu = Boolean(restaurantId);
 
@@ -50,7 +57,11 @@ export const Menu = () => {
                             {isRestaurantMenu && isOwnerOfRestaurant && (
                                 <Button
                                     variant="contained"
-                                    onClick={() => setIsAddDialogOpen(true)}
+                                    onClick={() => {
+                                        setDialogMode('add');
+                                        setSelectedItem(undefined);
+                                        setIsDialogOpen(true);
+                                    }}
                                 >
                                     Add Menu Item
                                 </Button>
@@ -63,20 +74,50 @@ export const Menu = () => {
                     emptyMessage="No menu items found."
                     loadingMessage="Loading menu..."
                     errorMessage="Failed to load menu."
-                    renderCard={(item) => (
+                    renderCard={(menuItem) => (
                         <MenuCard
-                            key={item.id}
-                            item={item}
+                            key={menuItem.id}
+                            item={menuItem}
                             isRestaurantMenu={isRestaurantMenu}
                             isOwner={isOwnerOfRestaurant}
-                            restaurantId={Number(restaurantId)}
+                            restaurantId={restaurantIdNumber}
+                            onEdit={(selectedMenuItem) => {
+                                setDialogMode('edit');
+                                setSelectedItem(selectedMenuItem);
+                                setIsDialogOpen(true);
+                            }}
+                            onDelete={(selectedMenuItem) => {
+                                setDialogMode('delete');
+                                setSelectedItem(selectedMenuItem);
+                                setIsDialogOpen(true);
+                            }}
                         />
                     )}
                 />
-                <AddMenuItemDialog
-                    open={isAddDialogOpen}
-                    restaurantId={Number(restaurantId)}
-                    onClose={() => setIsAddDialogOpen(false)}
+                <CustomDialog
+                    open={isDialogOpen}
+                    mode={dialogMode}
+                    restaurantId={restaurantIdNumber}
+                    item={selectedItem}
+                    title={
+                        dialogMode === 'delete'
+                            ? 'Delete Menu Item'
+                            : dialogMode === 'edit'
+                              ? 'Edit Menu Item'
+                              : 'Add Menu Item'
+                    }
+                    confirmButtonText={
+                        dialogMode === 'delete'
+                            ? 'Delete'
+                            : dialogMode === 'edit'
+                              ? 'Save'
+                              : 'Add'
+                    }
+                    onClose={() => {
+                        setDialogMode('add');
+                        setSelectedItem(undefined);
+                        setIsDialogOpen(false);
+                    }}
                 />
             </StyledPage>
         </>
