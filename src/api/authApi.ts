@@ -26,4 +26,4 @@ export const authApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi; // Returns hook array [TriggerFunction, ResultObject]
+export const { useLoginMutation, useRegisterMutation } = authApi;
