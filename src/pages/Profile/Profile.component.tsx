@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { CircularProgress, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import { useGetUserQuery } from '@api';
-import { useAppSelector } from '@hooks';
+import { CircularProgress, TextField, Typography } from '@mui/material';
 
-import { getProfileDetails } from './Profile.constants';
+import {
+    useDeleteUserMutation,
+    useGetUserQuery,
+    useUpdateUserMutation,
+} from '@api';
+import { CustomDialog } from '@components';
+import { APP_ROUTES } from '@constants';
+import { logout } from '@features/auth';
+import { useAppDispatch, useAppSelector } from '@hooks';
+
+import { getProfileDetails, profileFields } from './Profile.constants';
 import {
     ActionButton,
     ActionContainer,
@@ -21,12 +30,20 @@ import {
     UserInfo,
 } from './Profile.styles';
 import type { ProfileDialogMode } from './Profile.types';
-import { ProfileDialog } from './ProfileDialog';
 
 export const Profile = () => {
-    const [dialogMode, setDialogMode] = useState<ProfileDialogMode | null>(
-        null,
-    );
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        balance: '',
+    });
+
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate();
 
     const userId = useAppSelector((state) => state.auth.user?.id);
 
@@ -37,6 +54,33 @@ export const Profile = () => {
     } = useGetUserQuery(userId as number, {
         skip: !userId,
     });
+
+    const [dialogMode, setDialogMode] = useState<ProfileDialogMode | null>(
+        null,
+    );
+
+    const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+
+    const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+
+    const [dialogError, setDialogError] = useState('');
+
+    useEffect(() => {
+        if (!user || dialogMode !== 'edit') {
+            return;
+        }
+
+        setFormData({
+            name: user.name,
+            email: user.email,
+            city: user.city,
+            state: user.state,
+            zipcode: user.zipcode,
+            balance: String(user.balance),
+        });
+
+        setDialogError('');
+    }, [user, dialogMode]);
 
     if (isLoading) {
         return (
@@ -53,6 +97,41 @@ export const Profile = () => {
             </PageContainer>
         );
     }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleConfirm = async () => {
+        try {
+            if (dialogMode === 'delete') {
+                await deleteUser(user.id).unwrap();
+
+                dispatch(logout());
+
+                void navigate(APP_ROUTES.LOGIN);
+
+                return;
+            }
+
+            await updateUser({
+                userId: user.id,
+                body: {
+                    ...formData,
+                    balance: Number(formData.balance),
+                },
+            }).unwrap();
+
+            setDialogMode(null);
+        } catch {
+            setDialogError('Something went wrong.');
+        }
+    };
 
     const profileDetails = [
         ...getProfileDetails(user),
@@ -111,14 +190,53 @@ export const Profile = () => {
                     </ActionButton>
                 </ActionContainer>
             </ProfileCard>
-            {dialogMode && (
-                <ProfileDialog
-                    open={Boolean(dialogMode)}
-                    mode={dialogMode}
-                    user={user}
-                    onClose={() => setDialogMode(null)}
-                />
-            )}
+            <CustomDialog
+                open={Boolean(dialogMode)}
+                title={
+                    dialogMode === 'delete'
+                        ? 'Delete Account'
+                        : 'Update Profile'
+                }
+                confirmButtonText={
+                    dialogMode === 'delete' ? 'Delete' : 'Update'
+                }
+                confirmColor={dialogMode === 'delete' ? 'error' : 'primary'}
+                loading={isUpdating || isDeleting}
+                onClose={() => {
+                    setDialogMode(null);
+                    setDialogError('');
+                }}
+                onConfirm={() => {
+                    void handleConfirm();
+                }}
+            >
+                {dialogMode === 'delete' && (
+                    <Typography>
+                        Are you sure you want to delete your account?
+                    </Typography>
+                )}
+
+                {dialogMode === 'edit' && (
+                    <>
+                        {dialogError && (
+                            <Typography color="error">{dialogError}</Typography>
+                        )}
+
+                        {profileFields.map((field) => (
+                            <TextField
+                                key={field.name}
+                                label={field.label}
+                                name={field.name}
+                                type={field.type}
+                                value={formData[field.name]}
+                                onChange={handleChange}
+                                fullWidth
+                                margin="normal"
+                            />
+                        ))}
+                    </>
+                )}
+            </CustomDialog>
         </PageContainer>
     );
 };

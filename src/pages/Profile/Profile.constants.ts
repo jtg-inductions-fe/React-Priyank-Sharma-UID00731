@@ -22,3 +22,12 @@ export const getProfileDetails = (user: User) => [
         value: user.balance,
     },
 ];
+
+export const profileFields = [
+    { label: 'Name', name: 'name', type: 'text' },
+    { label: 'Email', name: 'email', type: 'email' },
+    { label: 'City', name: 'city', type: 'text' },
+    { label: 'State', name: 'state', type: 'text' },
+    { label: 'Zip Code', name: 'zipcode', type: 'text' },
+    { label: 'Balance', name: 'balance', type: 'number' },
+] as const;

@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Button, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 
-import { useGetMenuItemsQuery, useGetRestaurantsQuery } from '@api';
-import { CardSection, CustomDialog, DialogMode, MenuCard } from '@components';
+import {
+    useCreateMenuItemMutation,
+    useDeleteMenuItemMutation,
+    useGetMenuItemsQuery,
+    useGetRestaurantsQuery,
+    useUpdateMenuItemMutation,
+} from '@api';
+import type { DialogMode } from '@components';
+import { CardSection, CustomDialog, MenuCard } from '@components';
 import { useAppSelector } from '@hooks';
 import type { MenuItem } from '@types';
 
+import { menuFields } from './Menu.constants';
 import { MenuHeader, StyledPage } from './Menu.styles';
 
 export const Menu = () => {
@@ -32,11 +40,139 @@ export const Menu = () => {
         (restaurant) => restaurant.id === restaurantIdNumber,
     );
 
+    const [createMenuItem, { isLoading: isCreating }] =
+        useCreateMenuItemMutation();
+
+    const [updateMenuItem, { isLoading: isUpdating }] =
+        useUpdateMenuItemMutation();
+
+    const [deleteMenuItem, { isLoading: isDeleting }] =
+        useDeleteMenuItemMutation();
+
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const [dialogMode, setDialogMode] = useState<DialogMode>('add');
 
     const [selectedItem, setSelectedItem] = useState<MenuItem>();
+
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        quantity: '',
+    });
+
+    const { name, description, price, quantity } = formData;
+
+    const [dialogError, setDialogError] = useState('');
+
+    useEffect(() => {
+        setFormData({
+            name: selectedItem?.name ?? '',
+            description: selectedItem?.description ?? '',
+            price: selectedItem ? String(selectedItem.price) : '',
+            quantity: selectedItem ? String(selectedItem.quantity) : '',
+        });
+
+        setDialogError('');
+    }, [selectedItem, isDialogOpen]);
+
+    const validateForm = () => {
+        if (name.trim().length < 2) {
+            return 'Name must be at least 2 characters.';
+        }
+
+        if (description.trim().length < 5) {
+            return 'Description must be at least 5 characters.';
+        }
+
+        if (price === '' || Number(price) < 0) {
+            return 'Price must be 0 or greater.';
+        }
+
+        if (quantity === '' || Number(quantity) < 0) {
+            return 'Quantity must be 0 or greater.';
+        }
+
+        return '';
+    };
+
+    const handleChange = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { name: fieldName, value } = event.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [fieldName]: value,
+        }));
+    };
+
+    const handleNumberKeyDown = (
+        event: React.KeyboardEvent<HTMLInputElement>,
+    ) => {
+        if (['e', 'E', '+', '-'].includes(event.key)) {
+            event.preventDefault();
+        }
+    };
+
+    const handleConfirm = async () => {
+        try {
+            if (dialogMode !== 'delete') {
+                const validationError = validateForm();
+
+                if (validationError) {
+                    setDialogError(validationError);
+                    return;
+                }
+
+                setDialogError('');
+            }
+
+            switch (dialogMode) {
+                case 'add':
+                    await createMenuItem({
+                        restaurantId: restaurantIdNumber,
+                        data: {
+                            name,
+                            description,
+                            price: Number(price),
+                            quantity: Number(quantity),
+                        },
+                    }).unwrap();
+
+                    break;
+
+                case 'edit':
+                    await updateMenuItem({
+                        restaurantId: restaurantIdNumber,
+                        itemId: selectedItem!.id,
+                        data: {
+                            name,
+                            description,
+                            price: Number(price),
+                            quantity: Number(quantity),
+                        },
+                    }).unwrap();
+
+                    break;
+
+                case 'delete':
+                    await deleteMenuItem({
+                        restaurantId: restaurantIdNumber,
+                        itemId: selectedItem!.id,
+                    }).unwrap();
+
+                    break;
+            }
+
+            setIsDialogOpen(false);
+            setSelectedItem(undefined);
+            setDialogMode('add');
+        } catch {
+            setDialogError('Something went wrong.');
+        }
+    };
 
     const isRestaurantMenu = Boolean(restaurantId);
 
@@ -96,9 +232,6 @@ export const Menu = () => {
                 />
                 <CustomDialog
                     open={isDialogOpen}
-                    mode={dialogMode}
-                    restaurantId={restaurantIdNumber}
-                    item={selectedItem}
                     title={
                         dialogMode === 'delete'
                             ? 'Delete Menu Item'
@@ -113,12 +246,78 @@ export const Menu = () => {
                               ? 'Save'
                               : 'Add'
                     }
+                    confirmColor={dialogMode === 'delete' ? 'error' : 'primary'}
+                    loading={isCreating || isUpdating || isDeleting}
                     onClose={() => {
                         setDialogMode('add');
-                        setSelectedItem(undefined);
                         setIsDialogOpen(false);
+                        setSelectedItem(undefined);
                     }}
-                />
+                    onConfirm={() => {
+                        void handleConfirm();
+                    }}
+                >
+                    {dialogMode === 'delete' ? (
+                        <Typography>
+                            Are you sure you want to delete {selectedItem?.name}
+                            ?
+                        </Typography>
+                    ) : (
+                        <>
+                            {dialogError && (
+                                <Typography color="error">
+                                    {dialogError}
+                                </Typography>
+                            )}
+
+                            {menuFields.map((field) => (
+                                <TextField
+                                    key={field.name}
+                                    label={field.label}
+                                    name={field.name}
+                                    type={field.type}
+                                    value={formData[field.name]}
+                                    multiline={field.multiline}
+                                    fullWidth
+                                    margin="normal"
+                                    onChange={(event) => {
+                                        if (field.type === 'number') {
+                                            const value = event.target.value;
+
+                                            if (
+                                                value === '' ||
+                                                Number(value) >= 0
+                                            ) {
+                                                setFormData((prev) => ({
+                                                    ...prev,
+                                                    [field.name]: value,
+                                                }));
+                                            }
+
+                                            return;
+                                        }
+
+                                        handleChange(event);
+                                    }}
+                                    onKeyDown={
+                                        field.type === 'number'
+                                            ? handleNumberKeyDown
+                                            : undefined
+                                    }
+                                    slotProps={
+                                        field.type === 'number'
+                                            ? {
+                                                  htmlInput: {
+                                                      min: 0,
+                                                  },
+                                              }
+                                            : undefined
+                                    }
+                                />
+                            ))}
+                        </>
+                    )}
+                </CustomDialog>
             </StyledPage>
         </>
     );
