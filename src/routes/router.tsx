@@ -13,6 +13,7 @@ import {
     Restaurants,
 } from '@pages';
 
+import { OwnerRoute } from './OwnerRoute';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([
@@ -43,8 +44,13 @@ export const router = createBrowserRouter([
                         element: <Profile />,
                     },
                     {
-                        path: APP_ROUTES.MY_RESTAURANTS,
-                        element: <MyRestaurant />,
+                        element: <OwnerRoute />,
+                        children: [
+                            {
+                                path: APP_ROUTES.MY_RESTAURANTS,
+                                element: <MyRestaurant />,
+                            },
+                        ],
                     },
                 ],
             },
