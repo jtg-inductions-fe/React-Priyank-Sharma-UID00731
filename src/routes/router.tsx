@@ -2,7 +2,18 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { APP_ROUTES } from '@constants';
 import { MainLayout } from '@layouts';
-import { Home, Login, Menu, NotFound, Register, Restaurants } from '@pages';
+import {
+    Home,
+    Login,
+    Menu,
+    MyRestaurant,
+    NotFound,
+    Profile,
+    Register,
+    Restaurants,
+} from '@pages';
+
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +34,19 @@ export const router = createBrowserRouter([
             {
                 path: APP_ROUTES.RESTAURANT_MENU,
                 element: <Menu />,
+            },
+            {
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: APP_ROUTES.PROFILE,
+                        element: <Profile />,
+                    },
+                    {
+                        path: APP_ROUTES.MY_RESTAURANTS,
+                        element: <MyRestaurant />,
+                    },
+                ],
             },
         ],
     },

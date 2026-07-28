@@ -10,5 +10,6 @@ export const APP_ROUTES = {
     REGISTER: '/register',
     DASHBOARD: '/dashboard',
     PROFILE: '/profile',
+    MY_RESTAURANTS: '/my-restaurants',
     NOT_FOUND: '*',
 } as const;

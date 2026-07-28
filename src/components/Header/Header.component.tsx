@@ -1,9 +1,15 @@
 import { useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, Container, Drawer, Typography } from '@mui/material';
+import {
+    Button,
+    Container,
+    Drawer,
+    IconButton,
+    Typography,
+} from '@mui/material';
 
 import Logo from '@assets/images/logo.png';
 import { PopupMenu } from '@components';
@@ -41,6 +47,8 @@ export const Header = () => {
         setAnchorEl(event.currentTarget);
     };
 
+    const navigate = useNavigate();
+
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
@@ -48,6 +56,9 @@ export const Header = () => {
     const menuItems = auth.user
         ? getProfileMenuItems({
               restaurants: auth.user.restaurants,
+              onNavigate: (path) => {
+                  void navigate(path);
+              },
               onLogout: () => {
                   handleMenuClose();
                   dispatch(logout());
@@ -95,9 +106,14 @@ export const Header = () => {
                                 </Button>
                             </>
                         ) : (
-                            <ProfileAvatar onClick={handleProfileClick}>
-                                {auth.user?.name?.charAt(0).toUpperCase()}
-                            </ProfileAvatar>
+                            <IconButton
+                                onClick={handleProfileClick}
+                                disableRipple
+                            >
+                                <ProfileAvatar>
+                                    {auth.user?.name?.charAt(0).toUpperCase()}
+                                </ProfileAvatar>
+                            </IconButton>
                         )}
                     </ActionContainer>
 
