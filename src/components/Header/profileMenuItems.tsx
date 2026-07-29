@@ -64,6 +64,9 @@ export const getProfileMenuItems = ({
             {
                 label: 'Statistics',
                 icon: <BarChart />,
+                onClick: () => {
+                    onNavigate(APP_ROUTES.STATISTICS);
+                },
             },
         );
     }

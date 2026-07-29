@@ -11,6 +11,7 @@ import {
     Profile,
     Register,
     Restaurants,
+    Statistics,
 } from '@pages';
 
 import { OwnerRoute } from './OwnerRoute';
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
                             {
                                 path: APP_ROUTES.MY_RESTAURANTS,
                                 element: <MyRestaurant />,
+                            },
+                            {
+                                path: APP_ROUTES.STATISTICS,
+                                element: <Statistics />,
                             },
                         ],
                     },

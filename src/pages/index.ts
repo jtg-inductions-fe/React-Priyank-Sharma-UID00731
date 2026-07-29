@@ -6,3 +6,4 @@ export * from './Restaurants';
 export * from './Menu';
 export * from './Profile';
 export * from './MyRestaurant';
+export * from './Statistics';

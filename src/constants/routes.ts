@@ -9,6 +9,7 @@ export const APP_ROUTES = {
     LOGIN: '/login',
     REGISTER: '/register',
     DASHBOARD: '/dashboard',
+    STATISTICS: '/my-restaurants/statistics',
     PROFILE: '/profile',
     MY_RESTAURANTS: '/my-restaurants',
     NOT_FOUND: '*',
