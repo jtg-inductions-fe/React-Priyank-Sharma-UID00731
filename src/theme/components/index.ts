@@ -5,6 +5,7 @@ import InterLight from '@assets/fonts/inter/Inter-Light.woff2';
 import InterMedium from '@assets/fonts/inter/Inter-Medium.woff2';
 import InterRegular from '@assets/fonts/inter/Inter-Regular.woff2';
 import InterSemiBold from '@assets/fonts/inter/Inter-SemiBold.woff2';
+import { COLORS } from '@constants';
 
 const fontFaceDeclarations = `
 @font-face {
@@ -60,5 +61,66 @@ export const components: Components = {
 
             ${fontFaceDeclarations}
         `,
+    },
+
+    /**
+     * Global button styling.
+     */
+    MuiButton: {
+        defaultProps: {
+            disableElevation: true,
+        },
+
+        styleOverrides: {
+            root: {
+                borderRadius: '8px',
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '1.4rem',
+            },
+        },
+    },
+
+    /**
+     * Global card styling.
+     */
+    MuiCard: {
+        styleOverrides: {
+            root: {
+                borderRadius: '12px',
+                backgroundColor: COLORS.BACKGROUND.PAPER,
+            },
+        },
+    },
+
+    /**
+     * Global text field defaults.
+     */
+    MuiTextField: {
+        defaultProps: {
+            fullWidth: true,
+        },
+    },
+
+    /**
+     * Global outlined input styling.
+     */
+    MuiOutlinedInput: {
+        styleOverrides: {
+            root: {
+                borderRadius: '8px',
+            },
+        },
+    },
+
+    /**
+     * Global typography styling.
+     */
+    MuiTypography: {
+        styleOverrides: {
+            root: {
+                fontFamily: 'Inter',
+            },
+        },
     },
 };
