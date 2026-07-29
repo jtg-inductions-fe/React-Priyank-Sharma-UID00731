@@ -23,6 +23,7 @@ import {
     DrawerContent,
     LogoContainer,
     LogoImage,
+    LogoLink,
     MobileMenuButton,
     NavigationContainer,
     NavigationLink,
@@ -70,13 +71,15 @@ export const Header = () => {
         <StyledAppBar position="static" elevation={1}>
             <Container maxWidth="xl">
                 <StyledToolbar>
-                    <LogoContainer direction="row" spacing={1}>
-                        <LogoImage src={Logo} alt="EatPlex Logo" />
+                    <LogoLink to={APP_ROUTES.HOME}>
+                        <LogoContainer direction="row" spacing={1}>
+                            <LogoImage src={Logo} alt="EatPlex Logo" />
 
-                        <Typography variant="h5" color="primary">
-                            EatPlex
-                        </Typography>
-                    </LogoContainer>
+                            <Typography variant="h5" color="primary">
+                                EatPlex
+                            </Typography>
+                        </LogoContainer>
+                    </LogoLink>
 
                     <NavigationContainer direction="row" spacing={3}>
                         {navigationItems.map((item) => (

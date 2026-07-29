@@ -12,7 +12,8 @@ import {
     useUpdateMenuItemMutation,
 } from '@api';
 import type { DialogMode } from '@components';
-import { CardSection, CustomDialog, MenuCard } from '@components';
+import { CustomDialog, MenuCard } from '@components';
+import { CardSection } from '@containers';
 import { useAppSelector } from '@hooks';
 import type { MenuItem } from '@types';
 
