@@ -1,4 +1,6 @@
-import { Footer, Header, Hero, RestaurantSection } from '@components';
+import { Footer, Hero } from 'containers';
+
+import { Header, RestaurantSection } from '@components';
 
 /**
  * Displays the application home page.

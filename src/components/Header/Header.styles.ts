@@ -13,6 +13,11 @@ export const StyledToolbar = styled(Toolbar)({
     minHeight: '7rem',
 });
 
+export const LogoLink = styled(NavLink)(() => ({
+    textDecoration: 'none',
+    color: 'inherit',
+}));
+
 export const LogoContainer = styled(Stack)(() => ({
     alignItems: 'center',
 }));

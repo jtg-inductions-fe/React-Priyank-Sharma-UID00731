@@ -20,18 +20,21 @@ export const Hero = () => (
         <Container maxWidth="lg">
             <HeroSection>
                 <LeftSection>
-                    <WelcomeText variant="h6">Fresh & Delicious</WelcomeText>
+                    <WelcomeText variant="h6" marginBottom={2}>
+                        Fresh & Delicious
+                    </WelcomeText>
 
-                    <Heading variant="h2">
+                    <Heading variant="h2" marginBottom={2}>
                         Enjoy Your{' '}
                         <Box component="span" color="primary.main">
                             Favourite
                         </Box>
-                        <br />
-                        Food Anytime
+                        <Box component="span" display="block">
+                            Food Anytime
+                        </Box>
                     </Heading>
 
-                    <Description variant="body1">
+                    <Description variant="body1" marginBottom={3}>
                         Discover amazing restaurants near you. Explore menus,
                         browse delicious dishes and enjoy freshly prepared food
                         delivered to your doorstep.

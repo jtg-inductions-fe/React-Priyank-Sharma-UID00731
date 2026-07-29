@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const FooterWrapper = styled(Box)(({ theme }) => ({
@@ -8,9 +8,7 @@ export const FooterWrapper = styled(Box)(({ theme }) => ({
     padding: theme.spacing(6, 0),
 }));
 
-export const FooterContent = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
+export const FooterContent = styled(Stack)(({ theme }) => ({
     alignItems: 'center',
     textAlign: 'center',
     gap: theme.spacing(1),
