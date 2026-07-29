@@ -1,7 +1,6 @@
-import { useGetRestaurantsQuery } from 'services';
-
 import { Typography } from '@mui/material';
 
+import { useGetRestaurantsQuery } from '@api';
 import { RestaurantCard } from '@components/RestaurantCard';
 
 import {
