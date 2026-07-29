@@ -94,17 +94,6 @@ export const components: Components = {
     },
 
     /**
-     * Global paper styling.
-     */
-    MuiPaper: {
-        styleOverrides: {
-            root: {
-                borderRadius: '12px',
-            },
-        },
-    },
-
-    /**
      * Global text field defaults.
      */
     MuiTextField: {
