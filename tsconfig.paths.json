@@ -10,6 +10,9 @@
             "@constants": ["constants/index"],
             "@constants/*": ["constants/*"],
 
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
             "@theme": ["theme/index"],
             "@theme/*": ["theme/*"],
 
