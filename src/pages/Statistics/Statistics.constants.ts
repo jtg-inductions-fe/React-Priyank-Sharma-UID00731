@@ -14,7 +14,3 @@ export const STATISTICS_SECTIONS = [
 ] as const;
 
 export const ORDER_COLUMNS = ['Order ID', 'Date', 'Total'] as const;
-
-export const MENU_COLUMNS = ['Menu Item', 'Orders'] as const;
-
-export const CUSTOMER_COLUMNS = ['Customer', 'Email', 'Orders'] as const;

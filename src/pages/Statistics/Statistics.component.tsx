@@ -22,12 +22,8 @@ import {
 } from '@api';
 import { useAppSelector } from '@hooks';
 
-import {
-    CUSTOMER_COLUMNS,
-    MENU_COLUMNS,
-    ORDER_COLUMNS,
-    STATISTICS_SECTIONS,
-} from './Statistics.constants';
+import { StatisticsChart } from './components/StatisticsChart';
+import { ORDER_COLUMNS, STATISTICS_SECTIONS } from './Statistics.constants';
 import { HeaderSection, Section, StyledPage } from './Statistics.styles';
 
 export const Statistics = () => {
@@ -69,6 +65,16 @@ export const Statistics = () => {
     const [showAllOrders, setShowAllOrders] = useState(false);
 
     const visibleOrders = showAllOrders ? orders : orders.slice(0, 5);
+
+    const menuChartData = menuStats.map((item) => ({
+        label: item.menu_item_name,
+        value: item.order_count,
+    }));
+
+    const customerChartData = topCustomers.map((customer) => ({
+        label: customer.customer_name,
+        value: customer.order_count,
+    }));
 
     const renderTable = (
         section: (typeof STATISTICS_SECTIONS)[number]['key'],
@@ -122,54 +128,18 @@ export const Statistics = () => {
 
             case 'menu':
                 return (
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                {MENU_COLUMNS.map((column) => (
-                                    <TableCell key={column}>{column}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {menuStats.map((item) => (
-                                <TableRow key={item.menu_item_name}>
-                                    <TableCell>{item.menu_item_name}</TableCell>
-
-                                    <TableCell>{item.order_count}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <StatisticsChart
+                        data={menuChartData}
+                        orientation="vertical"
+                    />
                 );
 
             case 'customers':
                 return (
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                {CUSTOMER_COLUMNS.map((column) => (
-                                    <TableCell key={column}>{column}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {topCustomers.map((customer) => (
-                                <TableRow key={customer.email}>
-                                    <TableCell>
-                                        {customer.customer_name}
-                                    </TableCell>
-
-                                    <TableCell>{customer.email}</TableCell>
-
-                                    <TableCell>
-                                        {customer.order_count}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <StatisticsChart
+                        data={customerChartData}
+                        orientation="horizontal"
+                    />
                 );
         }
     };
