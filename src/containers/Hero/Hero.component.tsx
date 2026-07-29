@@ -24,13 +24,14 @@ export const Hero = () => (
                         Fresh & Delicious
                     </WelcomeText>
 
-                    <Heading variant="h2" marginBottom={2}>
+                    <Heading variant="h2" mb={2}>
                         Enjoy Your{' '}
                         <Box component="span" color="primary.main">
                             Favourite
                         </Box>
-                        <br />
-                        Food Anytime
+                        <Box component="span" display="block">
+                            Food Anytime
+                        </Box>
                     </Heading>
 
                     <Description variant="body1" marginBottom={3}>
