@@ -1,4 +1,5 @@
-import { baseApi } from '@api/baseApi';
+import { baseApi } from 'services/baseApi';
+
 import { authReducer } from '@features/auth';
 import { configureStore } from '@reduxjs/toolkit';
 

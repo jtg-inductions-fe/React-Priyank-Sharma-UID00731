@@ -4,7 +4,7 @@ export const baseApi = createApi({
     reducerPath: 'api',
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://127.0.0.1:8000',
+        baseUrl: import.meta.env.VITE_API_URL,
     }),
 
     endpoints: () => ({}),
