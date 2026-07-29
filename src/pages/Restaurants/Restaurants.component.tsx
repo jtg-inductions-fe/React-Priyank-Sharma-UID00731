@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 import { useGetRestaurantsQuery, useGetSortedRestaurantsQuery } from '@api';
-import { CardSection, CustomCard } from '@components';
+import { CustomCard } from '@components';
 import { getCardImage } from '@components';
 import { APP_ROUTES } from '@constants';
+import { CardSection } from '@containers';
 import { useAppSelector } from '@hooks';
 
 import { RestaurantsHeader, StyledPage } from './Restaurants.styles';

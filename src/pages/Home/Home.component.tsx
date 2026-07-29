@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 import { useGetRestaurantsQuery } from '@api';
-import { CardSection, CustomCard, Hero } from '@components';
-import { getCardImage } from '@components/CustomCard/cardImages';
+import { CustomCard } from '@components';
+import { getCardImage } from '@components';
 import { APP_ROUTES } from '@constants';
+import { CardSection, Hero } from '@containers';
 
 /**
  * Displays the application home page.

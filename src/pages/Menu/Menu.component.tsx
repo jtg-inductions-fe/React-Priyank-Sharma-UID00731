@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 import { useGetMenuItemsQuery, useGetRestaurantsQuery } from '@api';
-import { CardSection, CustomDialog, DialogMode, MenuCard } from '@components';
+import { CustomDialog, DialogMode, MenuCard } from '@components';
+import { CardSection } from '@containers';
 import { useAppSelector } from '@hooks';
 import type { MenuItem } from '@types';
 

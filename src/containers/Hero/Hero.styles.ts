@@ -40,7 +40,6 @@ export const RightSection = styled(Box)(({ theme }) => ({
 export const WelcomeText = styled(Typography)(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 600,
-    marginBottom: '1rem',
 }));
 
 export const Heading = styled(Typography)(() => ({
@@ -50,7 +49,6 @@ export const Heading = styled(Typography)(() => ({
 
 export const Description = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.secondary,
-    marginBottom: '3rem',
     lineHeight: 1.8,
 }));
 
