@@ -11,7 +11,7 @@ export const COLORS = {
         MAIN: '#FFC107',
     },
     BACKGROUND: {
-        DEFAULT: '#FFF3E3',
+        DEFAULT: '#FFFFFF',
         PAPER: '#FFFFFF',
     },
     TEXT: {
