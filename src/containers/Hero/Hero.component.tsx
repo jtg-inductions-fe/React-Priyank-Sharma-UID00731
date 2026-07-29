@@ -24,7 +24,7 @@ export const Hero = () => (
                         Fresh & Delicious
                     </WelcomeText>
 
-                    <Heading variant="h2" mb={2}>
+                    <Heading variant="h2" marginBottom={2}>
                         Enjoy Your{' '}
                         <Box component="span" color="primary.main">
                             Favourite
