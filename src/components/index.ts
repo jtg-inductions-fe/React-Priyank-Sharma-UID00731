@@ -1,2 +1,2 @@
-export * from '../containers/Header';
+export * from '@containers';
 export * from './PopupMenu';

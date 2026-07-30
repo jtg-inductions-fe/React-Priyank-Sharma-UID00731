@@ -10,6 +10,9 @@
             "@components": ["components/index"],
             "@components/*": ["components/*"],
 
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
             "@constants": ["constants/index"],
             "@constants/*": ["constants/*"],
 
