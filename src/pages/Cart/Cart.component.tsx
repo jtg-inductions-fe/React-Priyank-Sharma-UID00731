@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 import AddIcon from '@mui/icons-material/Add';
@@ -29,12 +31,17 @@ export const Cart = () => {
     const cart = useAppSelector((state) => state.cart);
     const auth = useAppSelector((state) => state.auth);
 
-    const [placeOrder, { isLoading, error }] = usePlaceOrderMutation();
+    const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+
+    const [orderError, setOrderError] = useState('');
 
     const total = cart.items.reduce(
         (sum, cartItem) => sum + cartItem.menu_item.price * cartItem.quantity,
         0,
     );
+
+    const DEFAULT_ORDER_ERROR_MESSAGE =
+        'Failed to place order. Please try again.';
 
     const handlePlaceOrder = async () => {
         if (!auth.isAuthenticated) {
@@ -46,6 +53,8 @@ export const Cart = () => {
             return;
         }
 
+        setOrderError('');
+
         try {
             await placeOrder({
                 restaurant_id: cart.restaurantId,
@@ -56,8 +65,12 @@ export const Cart = () => {
             }).unwrap();
 
             dispatch(clearCart());
-        } catch {
-            // Surfaced to the user via the `error` state below.
+        } catch (err) {
+            const apiError = err as { data?: { detail?: string } };
+
+            setOrderError(
+                apiError?.data?.detail ?? DEFAULT_ORDER_ERROR_MESSAGE,
+            );
         }
     };
 
@@ -159,10 +172,9 @@ export const Cart = () => {
                     ))}
 
                     <CartFooter>
-                        {error && (
+                        {orderError && (
                             <StyledAlert severity="error">
-                                Failed to place order. Please check your balance
-                                and try again.
+                                {orderError}
                             </StyledAlert>
                         )}
 
