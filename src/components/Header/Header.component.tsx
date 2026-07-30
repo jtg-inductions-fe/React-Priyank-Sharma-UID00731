@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {
+    Badge,
     Button,
     Container,
     Drawer,
@@ -15,6 +17,7 @@ import Logo from '@assets/images/logo.png';
 import { PopupMenu } from '@components';
 import { navigationItems } from '@config/navigation';
 import { APP_ROUTES } from '@constants';
+import { clearCart } from '@features';
 import { logout } from '@features/auth';
 import { useAppDispatch, useAppSelector } from '@hooks';
 
@@ -40,15 +43,18 @@ export const Header = () => {
 
     // Hooks
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     // Selectors
     const auth = useAppSelector((state) => state.auth);
 
+    const cartCount = useAppSelector((state) =>
+        state.cart.items.reduce((sum, cartItem) => sum + cartItem.quantity, 0),
+    );
+
     const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-
-    const navigate = useNavigate();
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -62,6 +68,7 @@ export const Header = () => {
               },
               onLogout: () => {
                   handleMenuClose();
+                  dispatch(clearCart());
                   dispatch(logout());
               },
           })
@@ -90,6 +97,16 @@ export const Header = () => {
                     </NavigationContainer>
 
                     <ActionContainer direction="row" spacing={1}>
+                        <IconButton
+                            component={NavLink}
+                            to={APP_ROUTES.CART}
+                            color="inherit"
+                        >
+                            <Badge badgeContent={cartCount} color="primary">
+                                <ShoppingCartOutlinedIcon />
+                            </Badge>
+                        </IconButton>
+
                         {!auth.isAuthenticated ? (
                             <>
                                 <Button
@@ -135,6 +152,13 @@ export const Header = () => {
                 onClose={() => setIsDrawerOpen(false)}
             >
                 <DrawerContent spacing={1}>
+                    <IconButton
+                        component={NavLink}
+                        to={APP_ROUTES.CART}
+                        color="inherit"
+                        onClick={() => setIsDrawerOpen(false)}
+                    ></IconButton>
+
                     {navigationItems.map((item) => (
                         <Button
                             key={item.path}

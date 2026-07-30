@@ -40,6 +40,9 @@ export const getProfileMenuItems = ({
             {
                 label: 'Cart',
                 icon: <ShoppingCart />,
+                onClick: () => {
+                    onNavigate(APP_ROUTES.CART);
+                },
             },
             {
                 label: 'Orders',

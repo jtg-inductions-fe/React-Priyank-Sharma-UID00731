@@ -1,4 +1,6 @@
-import { Button, Rating, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Button, IconButton, Rating, Stack, Typography } from '@mui/material';
 
 import { CustomCard, getCardImage } from '@components';
 
@@ -8,8 +10,12 @@ export const MenuCard = ({
     item,
     isRestaurantMenu,
     isOwner,
+    cartQuantity = 0,
     onEdit,
     onDelete,
+    onAddToCart,
+    onIncrement,
+    onDecrement,
 }: MenuCardProps) => (
     <>
         <CustomCard
@@ -58,10 +64,49 @@ export const MenuCard = ({
                                 Delete
                             </Button>
                         </>
-                    ) : (
-                        <Button variant="contained" fullWidth>
+                    ) : cartQuantity === 0 ? (
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            onClick={() => {
+                                onAddToCart?.(item);
+                            }}
+                        >
                             Add To Cart
                         </Button>
+                    ) : (
+                        <Stack
+                            direction="row"
+                            spacing={1}
+                            alignItems="center"
+                            justifyContent="center"
+                            width="100%"
+                        >
+                            <IconButton
+                                size="small"
+                                color="primary"
+                                onClick={() => {
+                                    onDecrement?.(item);
+                                }}
+                            >
+                                <RemoveIcon fontSize="small" />
+                            </IconButton>
+
+                            <Typography variant="subtitle1">
+                                {cartQuantity}
+                            </Typography>
+
+                            <IconButton
+                                size="small"
+                                color="primary"
+                                disabled={cartQuantity >= item.quantity}
+                                onClick={() => {
+                                    onIncrement?.(item);
+                                }}
+                            >
+                                <AddIcon fontSize="small" />
+                            </IconButton>
+                        </Stack>
                     )
                 ) : undefined
             }

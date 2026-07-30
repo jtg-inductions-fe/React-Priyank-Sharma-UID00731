@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { APP_ROUTES } from '@constants';
 import { MainLayout } from '@layouts';
 import {
+    Cart,
     Home,
     Login,
     Menu,
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: APP_ROUTES.RESTAURANT_MENU,
                 element: <Menu />,
+            },
+            {
+                path: APP_ROUTES.CART,
+                element: <Cart />,
             },
             {
                 element: <ProtectedRoute />,

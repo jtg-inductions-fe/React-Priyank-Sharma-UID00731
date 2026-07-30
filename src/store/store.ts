@@ -1,5 +1,6 @@
 import { baseApi } from '@api/baseApi';
 import { authReducer } from '@features/auth';
+import { cartReducer } from '@features/cart/cart.slice';
 import { configureStore } from '@reduxjs/toolkit';
 
 /**
@@ -8,6 +9,7 @@ import { configureStore } from '@reduxjs/toolkit';
 export const store = configureStore({
     reducer: {
         auth: authReducer,
+        cart: cartReducer,
 
         [baseApi.reducerPath]: baseApi.reducer,
     },

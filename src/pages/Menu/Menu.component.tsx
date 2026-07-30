@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Button, TextField, Typography } from '@mui/material';
+import { Alert, Button, TextField, Typography } from '@mui/material';
 
 import {
     useCreateMenuItemMutation,
@@ -14,7 +14,8 @@ import {
 import type { DialogMode } from '@components';
 import { CustomDialog, MenuCard } from '@components';
 import { CardSection } from '@containers';
-import { useAppSelector } from '@hooks';
+import { addItem, decrementItem, incrementItem } from '@features/cart';
+import { useAppDispatch, useAppSelector } from '@hooks';
 import type { MenuItem } from '@types';
 
 import { menuFields } from './Menu.constants';
@@ -66,6 +67,35 @@ export const Menu = () => {
     const { name, description, price, quantity } = formData;
 
     const [dialogError, setDialogError] = useState('');
+
+    const cart = useAppSelector((state) => state.cart);
+    const dispatch = useAppDispatch();
+
+    const [cartError, setCartError] = useState('');
+
+    const handleAddToCart = (menuItem: MenuItem) => {
+        if (
+            cart.restaurantId !== null &&
+            cart.restaurantId !== restaurantIdNumber
+        ) {
+            setCartError(
+                'Your cart has items from another restaurant. Please clear your cart before adding items from here.',
+            );
+
+            return;
+        }
+
+        setCartError('');
+        dispatch(addItem(menuItem));
+    };
+
+    const handleIncrement = (menuItem: MenuItem) => {
+        dispatch(incrementItem(menuItem.id));
+    };
+
+    const handleDecrement = (menuItem: MenuItem) => {
+        dispatch(decrementItem(menuItem.id));
+    };
 
     useEffect(() => {
         setFormData({
@@ -184,26 +214,37 @@ export const Menu = () => {
             <StyledPage>
                 <CardSection
                     title={
-                        <MenuHeader>
-                            <Typography variant="h5">
-                                {restaurantId
-                                    ? 'Restaurant Menu'
-                                    : 'All Menu Items'}
-                            </Typography>
+                        <>
+                            <MenuHeader>
+                                <Typography variant="h5">
+                                    {restaurantId
+                                        ? 'Restaurant Menu'
+                                        : 'All Menu Items'}
+                                </Typography>
 
-                            {isRestaurantMenu && isOwnerOfRestaurant && (
-                                <Button
-                                    variant="contained"
-                                    onClick={() => {
-                                        setDialogMode('add');
-                                        setSelectedItem(undefined);
-                                        setIsDialogOpen(true);
-                                    }}
+                                {isRestaurantMenu && isOwnerOfRestaurant && (
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => {
+                                            setDialogMode('add');
+                                            setSelectedItem(undefined);
+                                            setIsDialogOpen(true);
+                                        }}
+                                    >
+                                        Add Menu Item
+                                    </Button>
+                                )}
+                            </MenuHeader>
+
+                            {cartError && (
+                                <Alert
+                                    severity="error"
+                                    onClose={() => setCartError('')}
                                 >
-                                    Add Menu Item
-                                </Button>
+                                    {cartError}
+                                </Alert>
                             )}
-                        </MenuHeader>
+                        </>
                     }
                     items={availableMenuItems}
                     isLoading={isLoading}
@@ -218,6 +259,12 @@ export const Menu = () => {
                             isRestaurantMenu={isRestaurantMenu}
                             isOwner={isOwnerOfRestaurant}
                             restaurantId={restaurantIdNumber}
+                            cartQuantity={
+                                cart.items.find(
+                                    (cartItem) =>
+                                        cartItem.menu_item.id === menuItem.id,
+                                )?.quantity ?? 0
+                            }
                             onEdit={(selectedMenuItem) => {
                                 setDialogMode('edit');
                                 setSelectedItem(selectedMenuItem);
@@ -228,6 +275,9 @@ export const Menu = () => {
                                 setSelectedItem(selectedMenuItem);
                                 setIsDialogOpen(true);
                             }}
+                            onAddToCart={handleAddToCart}
+                            onIncrement={handleIncrement}
+                            onDecrement={handleDecrement}
                         />
                     )}
                 />
