@@ -9,12 +9,9 @@ import {
 } from '@mui/icons-material';
 
 import { PopupMenuItem } from '@components/PopupMenu';
-import { ROLE, RoleType } from '@types';
+import { ROLE } from '@types';
 
-interface GetProfileMenuItemsProps {
-    role?: RoleType;
-    onLogout: () => void;
-}
+import { GetProfileMenuItemsProps } from './profileMenuItems.types';
 
 export const getProfileMenuItems = ({
     role,
