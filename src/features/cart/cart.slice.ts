@@ -10,10 +10,6 @@ const initialState: CartState = getCart() ?? {
 
 /**
  * Redux slice for cart state management.
- *
- * A cart may only contain items belonging to a single restaurant;
- * conflicting adds must be blocked by the caller before dispatching.
- * State is persisted to localStorage so it survives page refreshes.
  */
 export const cartSlice = createSlice({
     name: 'cart',
