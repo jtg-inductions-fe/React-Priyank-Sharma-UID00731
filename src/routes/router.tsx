@@ -14,6 +14,7 @@ import {
     Restaurants,
     Statistics,
 } from '@pages';
+import { Orders } from '@pages/Orders/Orders.component';
 
 import { OwnerRoute } from './OwnerRoute';
 import { ProtectedRoute } from './ProtectedRoute';
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
                     {
                         path: APP_ROUTES.PROFILE,
                         element: <Profile />,
+                    },
+                    {
+                        path: APP_ROUTES.ORDERS,
+                        element: <Orders />,
                     },
                     {
                         element: <OwnerRoute />,

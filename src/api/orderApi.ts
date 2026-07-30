@@ -10,10 +10,14 @@ export const orderApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
-            invalidatesTags: ['MenuItems', 'User'],
+            invalidatesTags: ['MenuItems', 'User', 'Orders'],
+        }),
+        getMyOrders: build.query<Order[], void>({
+            query: () => '/orders/',
+            providesTags: ['Orders'],
         }),
     }),
     overrideExisting: false,
 });
 
-export const { usePlaceOrderMutation } = orderApi;
+export const { usePlaceOrderMutation, useGetMyOrdersQuery } = orderApi;

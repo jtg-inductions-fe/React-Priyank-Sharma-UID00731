@@ -8,6 +8,7 @@ export const APP_ROUTES = {
     RESTAURANT_MENU: '/menu/:restaurantId',
     LOGIN: '/login',
     CART: '/cart',
+    ORDERS: '/orders',
     REGISTER: '/register',
     DASHBOARD: '/dashboard',
     STATISTICS: '/my-restaurants/statistics',

@@ -8,3 +8,4 @@ export * from './Profile';
 export * from './MyRestaurant';
 export * from './Statistics';
 export * from './Cart';
+export * from './Orders';
