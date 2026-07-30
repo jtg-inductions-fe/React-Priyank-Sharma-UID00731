@@ -1,4 +1,4 @@
-import { Header } from '@components';
+import { Header } from '@containers';
 
 /**
  * Displays the application home page.
