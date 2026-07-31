@@ -4,7 +4,7 @@ import type { ButtonProps, DialogProps } from '@mui/material';
 
 export type DialogMode = 'add' | 'edit' | 'delete';
 
-export interface CustomDialogProps {
+export type CustomDialogProps = {
     open: boolean;
     title: ReactNode;
     children: ReactNode;
@@ -17,4 +17,4 @@ export interface CustomDialogProps {
     maxWidth?: DialogProps['maxWidth'];
     fullWidth?: boolean;
     disableConfirm?: boolean;
-}
+};

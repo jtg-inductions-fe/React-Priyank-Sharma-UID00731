@@ -15,7 +15,7 @@ import {
     Statistics,
 } from '@pages';
 
-import { OwnerRoute } from './OwnerRoute';
+import { OwnerRoute } from './OwnerRoute.route';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([

@@ -1,1 +1,1 @@
-export * from './Register.component';
+export * from './Register.page';
