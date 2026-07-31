@@ -25,6 +25,9 @@
             "@routes": ["routes/index"],
             "@routes/*": ["routes/*"],
 
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
             "@features": ["features/index"],
             "@features/*": ["features/*"],
 

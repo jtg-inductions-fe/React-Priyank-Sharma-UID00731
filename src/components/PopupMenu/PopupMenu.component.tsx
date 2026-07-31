@@ -1,14 +1,7 @@
 import { ListItemIcon, ListItemText } from '@mui/material';
 
 import { StyledMenu, StyledMenuItem } from './PopupMenu.styles';
-import { PopupMenuItem } from './PopupMenu.types';
-
-interface PopupMenuProps {
-    anchorEl: HTMLElement | null;
-    open: boolean;
-    onClose: () => void;
-    items: PopupMenuItem[];
-}
+import { PopupMenuProps } from './PopupMenu.types';
 
 export const PopupMenu = ({
     anchorEl,

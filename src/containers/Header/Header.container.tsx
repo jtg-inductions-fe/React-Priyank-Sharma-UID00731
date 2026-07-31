@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
+import { normalUser } from 'containers/Header/dummyData';
 import { NavLink } from 'react-router-dom';
+import { loginSuccess, logout } from 'slices/auth';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, Container, Drawer, Typography } from '@mui/material';
 
 import Logo from '@assets/images/logo.png';
 import { PopupMenu } from '@components';
-import { normalUser } from '@components/Header/dummyData';
 import { navigationItems } from '@config/navigation';
 import { APP_ROUTES } from '@constants';
-import { loginSuccess, logout } from '@features/auth';
 import { useAppDispatch, useAppSelector } from '@hooks';
 
 import {
