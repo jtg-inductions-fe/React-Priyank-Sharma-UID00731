@@ -1,6 +1,6 @@
 import type { User } from '@types';
 
-import { baseApi } from './baseApi';
+import { baseApi } from './base.service';
 
 export const userApi = baseApi.injectEndpoints({
     endpoints: (build) => ({

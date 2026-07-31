@@ -4,7 +4,7 @@ import type {
     UpdateMenuItemPayload,
 } from '@types';
 
-import { baseApi } from './baseApi';
+import { baseApi } from './base.service';
 
 export const menuApi = baseApi.injectEndpoints({
     endpoints: (build) => ({

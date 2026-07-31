@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
+import { useGetMenuItemsQuery, useGetRestaurantsQuery } from 'services';
 
 import { Button, Typography } from '@mui/material';
 
-import { useGetMenuItemsQuery, useGetRestaurantsQuery } from '@api';
 import { CustomDialog, DialogMode, MenuCard } from '@components';
 import { CardSection } from '@containers';
 import { useAppSelector } from '@hooks';

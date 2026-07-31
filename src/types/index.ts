@@ -1,3 +1,3 @@
-export * from './auth';
-export * from './restaurant';
-export * from './menu';
+export * from './menu.type';
+export * from './auth.type';
+export * from './restaurant.type';

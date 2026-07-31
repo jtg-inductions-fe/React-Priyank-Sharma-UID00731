@@ -1,31 +1,53 @@
 import { NavLink } from 'react-router-dom';
+import { useGetRestaurantsQuery, useGetSortedRestaurantsQuery } from 'services';
 
 import { Button, Typography } from '@mui/material';
 
-import { useGetRestaurantsQuery } from '@api';
 import { CustomCard } from '@components';
 import { getCardImage } from '@components';
 import { APP_ROUTES } from '@constants';
-import { CardSection, Hero } from '@containers';
+import { CardSection } from '@containers';
+import { useAppSelector } from '@hooks';
 
-/**
- * Displays the application home page.
- *
- * @returns Home page component.
- */
-export const Home = () => {
-    const {
-        data: restaurants = [],
-        isLoading,
-        error,
-    } = useGetRestaurantsQuery();
+import { RestaurantsHeader, StyledPage } from './Restaurants.styles';
+
+export const Restaurants = () => {
+    const isAuthenticated = useAppSelector(
+        (state) => state.auth.isAuthenticated,
+    );
+
+    const guestQuery = useGetRestaurantsQuery(undefined, {
+        skip: isAuthenticated,
+    });
+
+    const sortedQuery = useGetSortedRestaurantsQuery(undefined, {
+        skip: !isAuthenticated,
+    });
+
+    const restaurants = isAuthenticated
+        ? (sortedQuery.data ?? [])
+        : (guestQuery.data ?? []);
+
+    const isLoading = isAuthenticated
+        ? sortedQuery.isLoading
+        : guestQuery.isLoading;
+
+    const error = isAuthenticated ? sortedQuery.error : guestQuery.error;
 
     return (
-        <>
-            <Hero />
+        <StyledPage>
+            <RestaurantsHeader>
+                <Typography variant="h3" gutterBottom>
+                    Explore Restaurants
+                </Typography>
+
+                <Typography variant="h6" color="text.secondary">
+                    Discover restaurants near you and browse their available
+                    menus.
+                </Typography>
+            </RestaurantsHeader>
 
             <CardSection
-                title="Featured Restaurants"
                 items={restaurants}
                 isLoading={isLoading}
                 error={error}
@@ -55,6 +77,6 @@ export const Home = () => {
                     />
                 )}
             />
-        </>
+        </StyledPage>
     );
 };

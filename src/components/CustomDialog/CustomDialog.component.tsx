@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import {
+    useCreateMenuItemMutation,
+    useDeleteMenuItemMutation,
+    useUpdateMenuItemMutation,
+} from 'services';
+
+import {
     Button,
     Dialog,
     DialogActions,
@@ -9,12 +15,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-
-import {
-    useCreateMenuItemMutation,
-    useDeleteMenuItemMutation,
-    useUpdateMenuItemMutation,
-} from '@api';
 
 import type { CustomDialogProps } from './CustomDialog.types';
 

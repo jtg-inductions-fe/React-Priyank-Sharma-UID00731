@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import type { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from 'services';
 
 import { Button, Typography } from '@mui/material';
 
-import { useRegisterMutation } from '@api';
 import { APP_ROUTES } from '@constants';
 import type { RegisterRequest } from '@types';
 import { ROLE } from '@types';

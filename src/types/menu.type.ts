@@ -1,22 +1,22 @@
-export interface MenuItem {
+export type MenuItem = {
     id: number;
     restaurant_id: number;
     name: string;
     description: string;
     price: number;
     quantity: number;
-}
+};
 
-export interface UpdateMenuItemPayload {
+export type UpdateMenuItemPayload = {
     name: string;
     description: string;
     price: number;
     quantity: number;
-}
+};
 
-export interface CreateMenuItemPayload {
+export type CreateMenuItemPayload = {
     name: string;
     description: string;
     price: number;
     quantity: number;
-}
+};
