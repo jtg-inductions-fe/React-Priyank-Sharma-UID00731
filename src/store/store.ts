@@ -1,6 +1,6 @@
+import { baseApi } from 'services/base.service';
 import { authReducer } from 'slices/auth';
 
-import { baseApi } from '@api/baseApi';
 import { configureStore } from '@reduxjs/toolkit';
 
 /**
