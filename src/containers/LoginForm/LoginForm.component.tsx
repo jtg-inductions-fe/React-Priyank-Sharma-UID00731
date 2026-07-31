@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import type { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLazyGetUserQuery, useLoginMutation } from 'services';
 
 import { Button, Typography } from '@mui/material';
 
-import { useLazyGetUserQuery, useLoginMutation } from '@api';
 import { APP_ROUTES } from '@constants';
-import { loginSuccess } from '@features/auth';
 import { useAppDispatch } from '@hooks';
+import { loginSuccess } from '@slices';
 import type { LoginRequest } from '@types';
 import { getErrorMessage } from '@utils';
 import { setToken } from '@utils';

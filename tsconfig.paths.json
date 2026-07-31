@@ -2,8 +2,8 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@api": ["api/index"],
-            "@api/*": ["api/*"],
+            "@services": ["src/services/index.ts"],
+            "@services/*": ["src/services/*"],
 
             "@assets/*": ["assets/*"],
 
@@ -25,6 +25,9 @@
             "@routes": ["routes/index"],
             "@routes/*": ["routes/*"],
 
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
             "@features": ["features/index"],
             "@features/*": ["features/*"],
 
@@ -38,7 +41,10 @@
             "@config/*": ["config/*"],
 
             "@utils": ["utils/index"],
-            "@utils/*": ["utils/*"]
+            "@utils/*": ["utils/*"],
+
+            "@slices": ["slices/index"],
+            "@slices/*": ["slices/*"]
         }
     }
 }

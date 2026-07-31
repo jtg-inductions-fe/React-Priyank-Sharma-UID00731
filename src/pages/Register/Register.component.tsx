@@ -1,4 +1,4 @@
-import { RegisterForm } from '@features';
+import { RegisterForm } from '@containers';
 
 import { StyledPageContainer } from './Register.styles';
 

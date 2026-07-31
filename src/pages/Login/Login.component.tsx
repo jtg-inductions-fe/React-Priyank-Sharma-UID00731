@@ -1,4 +1,4 @@
-import { LoginForm } from '@features';
+import { LoginForm } from '@containers';
 
 import { StyledPageContainer } from './Login.styles';
 

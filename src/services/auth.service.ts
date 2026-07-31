@@ -5,7 +5,7 @@ import type {
     User,
 } from '@types';
 
-import { baseApi } from './baseApi';
+import { baseApi } from './base.service';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -26,4 +26,4 @@ export const authApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi; // Returns hook array [TriggerFunction, ResultObject]
+export const { useLoginMutation, useRegisterMutation } = authApi;

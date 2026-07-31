@@ -1,5 +1,5 @@
 import type { Restaurant } from '@types';
 
-export interface RestaurantCardProps {
+export type RestaurantCardProps = {
     restaurant: Restaurant;
-}
+};
