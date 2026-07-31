@@ -3,7 +3,6 @@ import {
     Logout,
     Person,
     ReceiptLong,
-    RestaurantMenu,
     ShoppingCart,
     Storefront,
 } from '@mui/icons-material';
@@ -61,10 +60,6 @@ export const getProfileMenuItems = ({
                 onClick: () => {
                     onNavigate(APP_ROUTES.MY_RESTAURANTS);
                 },
-            },
-            {
-                label: 'Menu Management',
-                icon: <RestaurantMenu />,
             },
             {
                 label: 'Statistics',
