@@ -2,7 +2,7 @@ import type { MenuItem } from '@types';
 
 export type DialogMode = 'add' | 'edit' | 'delete';
 
-export interface CustomDialogProps {
+export type CustomDialogProps = {
     open: boolean;
     mode: 'add' | 'edit' | 'delete';
     restaurantId: number;
@@ -10,4 +10,4 @@ export interface CustomDialogProps {
     title: string;
     confirmButtonText: string;
     onClose: () => void;
-}
+};
