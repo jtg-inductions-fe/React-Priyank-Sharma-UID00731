@@ -8,13 +8,9 @@ import {
     Storefront,
 } from '@mui/icons-material';
 
-import { PopupMenuItem } from '@components/PopupMenu';
-import type { Restaurant } from '@types';
+import { PopupMenuItem } from '@components';
 
-interface GetProfileMenuItemsProps {
-    restaurants?: Restaurant[];
-    onLogout: () => void;
-}
+import { GetProfileMenuItemsProps } from './profileMenuItems.types';
 
 export const getProfileMenuItems = ({
     restaurants = [],

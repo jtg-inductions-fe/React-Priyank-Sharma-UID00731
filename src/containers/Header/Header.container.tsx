@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
+import { logout } from 'slices';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, Container, Drawer, Typography } from '@mui/material';
@@ -9,7 +10,6 @@ import Logo from '@assets/images/logo.png';
 import { PopupMenu } from '@components';
 import { navigationItems } from '@config/navigation';
 import { APP_ROUTES } from '@constants';
-import { logout } from '@features/auth';
 import { useAppDispatch, useAppSelector } from '@hooks';
 
 import {

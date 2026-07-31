@@ -1,7 +1,8 @@
+import { useGetRestaurantsQuery, useGetSortedRestaurantsQuery } from 'services';
+
 import { Typography } from '@mui/material';
 
-import { useGetRestaurantsQuery, useGetSortedRestaurantsQuery } from '@api';
-import { RestaurantSection } from '@components';
+import { RestaurantSection } from '@containers';
 import { useAppSelector } from '@hooks';
 
 import { RestaurantsHeader, StyledPage } from './Restaurants.styles';

@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-import { RestaurantCard } from '@components/RestaurantCard';
+import { RestaurantCard } from '@components';
 
 import {
     RestaurantGrid,

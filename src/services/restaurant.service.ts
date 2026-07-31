@@ -1,6 +1,6 @@
 import type { Restaurant } from '@types';
 
-import { baseApi } from './baseApi';
+import { baseApi } from './base.service';
 
 export const restaurantApi = baseApi.injectEndpoints({
     endpoints: (build) => ({

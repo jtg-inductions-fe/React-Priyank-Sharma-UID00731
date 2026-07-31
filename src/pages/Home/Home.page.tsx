@@ -1,6 +1,6 @@
-import { useGetRestaurantsQuery } from '@api';
-import { RestaurantSection } from '@components';
-import { Hero } from '@containers';
+import { useGetRestaurantsQuery } from 'services';
+
+import { Hero, RestaurantSection } from '@containers';
 
 /**
  * Displays the application home page.
