@@ -1,4 +1,4 @@
-import type { Restaurant } from './restaurant';
+import type { Restaurant } from './restaurant.type';
 
 export const ROLE = {
     ADMIN: 1,
