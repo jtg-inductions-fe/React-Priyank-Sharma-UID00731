@@ -1,1 +1,1 @@
-export * from './MyRestaurant.component';
+export * from './MyRestaurant.page';
