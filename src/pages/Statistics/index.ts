@@ -1,1 +1,1 @@
-export * from './Statistics.component';
+export * from './Statistics.page';

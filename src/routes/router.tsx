@@ -16,7 +16,7 @@ import {
 } from '@pages';
 import { Orders } from '@pages/Orders/Orders.component';
 
-import { OwnerRoute } from './OwnerRoute';
+import { OwnerRoute } from './OwnerRoute.route';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([

@@ -1,6 +1,7 @@
-import { baseApi } from '@api/baseApi';
-import { authReducer } from '@features/auth';
-import { cartReducer } from '@features/cart/cart.slice';
+import { baseApi } from 'services';
+import { cartReducer } from 'slices';
+import { authReducer } from 'slices';
+
 import { configureStore } from '@reduxjs/toolkit';
 
 /**

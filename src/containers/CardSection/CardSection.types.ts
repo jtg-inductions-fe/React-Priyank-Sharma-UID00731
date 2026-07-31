@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-export interface CardSectionProps<T> {
+export type CardSectionProps<T> = {
     title?: ReactNode;
     items: T[];
     isLoading: boolean;
@@ -12,4 +12,4 @@ export interface CardSectionProps<T> {
     loadingMessage?: string;
     errorMessage?: string;
     renderCard: (item: T) => ReactNode;
-}
+};

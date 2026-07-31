@@ -1,9 +1,8 @@
 import { useLocation } from 'react-router-dom';
+import { useGetMyOrdersQuery } from 'services';
 
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { CircularProgress, Typography } from '@mui/material';
-
-import { useGetMyOrdersQuery } from '@api';
 
 import {
     EmptyState,
