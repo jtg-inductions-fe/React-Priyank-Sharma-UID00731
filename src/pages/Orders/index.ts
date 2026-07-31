@@ -1,1 +1,1 @@
-export * from './Orders.component';
+export * from './Orders.page';

@@ -14,7 +14,7 @@ import {
     Restaurants,
     Statistics,
 } from '@pages';
-import { Orders } from '@pages/Orders/Orders.component';
+import { Orders } from '@pages/Orders/Orders.page';
 
 import { OwnerRoute } from './OwnerRoute.route';
 import { ProtectedRoute } from './ProtectedRoute';
