@@ -1,0 +1,3 @@
+# Hooks rules :- 
+    1> Call hooks only at the top level: Never call hooks inside loops, conditional statements, or nested functions.
+    2> Call hooks only from React functions: You can only execute them inside React functional components or inside custom hooks

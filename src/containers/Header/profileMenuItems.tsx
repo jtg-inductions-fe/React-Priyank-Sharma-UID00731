@@ -27,13 +27,6 @@ export const getProfileMenuItems = ({
                 onNavigate(APP_ROUTES.PROFILE);
             },
         },
-        {
-            label: 'Orders',
-            icon: <ReceiptLong />,
-            onClick: () => {
-                onNavigate(APP_ROUTES.ORDERS);
-            },
-        },
     ];
 
     if (!isRestaurantOwner) {
@@ -48,6 +41,9 @@ export const getProfileMenuItems = ({
             {
                 label: 'Orders',
                 icon: <ReceiptLong />,
+                onClick: () => {
+                    onNavigate(APP_ROUTES.ORDERS);
+                },
             },
         );
     }
