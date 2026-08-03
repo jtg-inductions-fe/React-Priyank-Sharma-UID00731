@@ -1,28 +1,126 @@
 import type { Components } from '@mui/material/styles';
 
-// Local Font files
-import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
-import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
+import InterBold from '@assets/fonts/inter/Inter-Bold.woff2';
+import InterLight from '@assets/fonts/inter/Inter-Light.woff2';
+import InterMedium from '@assets/fonts/inter/Inter-Medium.woff2';
+import InterRegular from '@assets/fonts/inter/Inter-Regular.woff2';
+import InterSemiBold from '@assets/fonts/inter/Inter-SemiBold.woff2';
+import { COLORS } from '@constants';
 
-// TODO: Add necessary font face declarations here
 const fontFaceDeclarations = `
-       @font-face {
-        font-display: swap; 
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        src: url(${InterRegularWOFF2}) format('woff2'), 
-        url(${InterRegularTTF}) format('truetype');
-      };
-    `;
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    src: url(${InterLight}) format('woff2');
+}
 
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url(${InterRegular}) format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    src: url(${InterMedium}) format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    src: url(${InterSemiBold}) format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url(${InterBold}) format('woff2');
+};
+`;
+
+/**
+ * Material UI component theme overrides.
+ */
 export const components: Components = {
     MuiCssBaseline: {
+        styleOverrides: () => `
+            html {
+                font-size: 62.5%;
+            }
+
+            ${fontFaceDeclarations}
+        `,
+    },
+
+    /**
+     * Global button styling.
+     */
+    MuiButton: {
+        defaultProps: {
+            disableElevation: true,
+        },
+
         styleOverrides: {
-            html: {
-                fontSize: '62.5%',
+            root: {
+                borderRadius: '8px',
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '1.4rem',
             },
-            fontFaceDeclarations,
+        },
+    },
+
+    /**
+     * Global card styling.
+     */
+    MuiCard: {
+        styleOverrides: {
+            root: {
+                borderRadius: '12px',
+                backgroundColor: COLORS.BACKGROUND.PAPER,
+            },
+        },
+    },
+
+    /**
+     * Global text field defaults.
+     */
+    MuiTextField: {
+        defaultProps: {
+            fullWidth: true,
+        },
+    },
+
+    /**
+     * Global outlined input styling.
+     */
+    MuiOutlinedInput: {
+        styleOverrides: {
+            root: {
+                borderRadius: '8px',
+            },
+        },
+    },
+
+    /**
+     * Global typography styling.
+     */
+    MuiTypography: {
+        styleOverrides: {
+            root: {
+                fontFamily: 'Inter',
+            },
         },
     },
 };

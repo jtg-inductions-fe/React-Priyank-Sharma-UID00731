@@ -4,7 +4,20 @@
  */
 export const COLORS = {
     PRIMARY: {
-        MAIN: '#0E9F6E',
+        MAIN: '#F98D29',
+        LIGHT: '#FFDCA8',
+    },
+    SECONDARY: {
+        MAIN: '#FFC107',
+    },
+    BACKGROUND: {
+        DEFAULT: '#FFFFFF',
+        PAPER: '#FFFFFF',
+    },
+    TEXT: {
+        PRIMARY: '#0F172A',
+        SECONDARY: '#52525B',
+        DISABLED: '#A1A1AA',
     },
 };
 
