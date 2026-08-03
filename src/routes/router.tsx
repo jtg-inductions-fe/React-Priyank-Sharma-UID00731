@@ -1,15 +1,83 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { APP_ROUTES } from '@constants';
-import { Home, NotFound } from '@pages';
+import { MainLayout } from '@layouts';
+import {
+    Cart,
+    Home,
+    Login,
+    Menu,
+    MyRestaurant,
+    NotFound,
+    Profile,
+    Register,
+    Restaurants,
+    Statistics,
+} from '@pages';
+import { Orders } from '@pages/Orders/Orders.page';
 
-/**
- * Application routes.
- */
+import { OwnerRoute } from './OwnerRoute.route';
+import { ProtectedRoute } from './ProtectedRoute';
+
 export const router = createBrowserRouter([
     {
-        path: APP_ROUTES.HOME,
-        element: <Home />,
+        element: <MainLayout />,
+        children: [
+            {
+                path: APP_ROUTES.HOME,
+                element: <Home />,
+            },
+            {
+                path: APP_ROUTES.RESTAURANTS,
+                element: <Restaurants />,
+            },
+            {
+                path: APP_ROUTES.MENU,
+                element: <Menu />,
+            },
+            {
+                path: APP_ROUTES.RESTAURANT_MENU,
+                element: <Menu />,
+            },
+            {
+                path: APP_ROUTES.CART,
+                element: <Cart />,
+            },
+            {
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: APP_ROUTES.PROFILE,
+                        element: <Profile />,
+                    },
+                    {
+                        path: APP_ROUTES.ORDERS,
+                        element: <Orders />,
+                    },
+                    {
+                        element: <OwnerRoute />,
+                        children: [
+                            {
+                                path: APP_ROUTES.MY_RESTAURANTS,
+                                element: <MyRestaurant />,
+                            },
+                            {
+                                path: APP_ROUTES.STATISTICS,
+                                element: <Statistics />,
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        path: APP_ROUTES.LOGIN,
+        element: <Login />,
+    },
+    {
+        path: APP_ROUTES.REGISTER,
+        element: <Register />,
     },
     {
         path: APP_ROUTES.NOT_FOUND,

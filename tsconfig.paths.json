@@ -2,13 +2,55 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
+            "@services": ["src/services/index.ts"],
+            "@services/*": ["src/services/*"],
+
             "@assets/*": ["assets/*"],
+
             "@constants": ["constants/index"],
+            "@constants/*": ["constants/*"],
+
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
             "@theme": ["theme/index"],
+            "@theme/*": ["theme/*"],
+
             "@store": ["store/index"],
+            "@store/*": ["store/*"],
+
             "@pages": ["pages/index"],
+            "@pages/*": ["pages/*"],
+
             "@components": ["components/index"],
-            "@routes": ["routes/index"]
+            "@components/*": ["components/*"],
+
+            "@routes": ["routes/index"],
+            "@routes/*": ["routes/*"],
+
+            "@containers": ["containers/index"],
+            "@containers/*": ["containers/*"],
+
+            "@features": ["features/index"],
+            "@features/*": ["features/*"],
+
+            "@hooks": ["hooks/index"],
+            "@hooks/*": ["hooks/*"],
+
+            "@types": ["types/index"],
+            "@types/*": ["types/*"],
+
+            "@layouts/*": ["layouts/*"],
+            "@layouts": ["layouts/index"],
+
+            "@config/*": ["config/*"],
+            "@config": ["config/index"],
+
+            "@utils": ["utils/index"],
+            "@utils/*": ["utils/*"],
+
+            "@slices": ["slices/index"],
+            "@slices/*": ["slices/*"]
         }
     }
 }
